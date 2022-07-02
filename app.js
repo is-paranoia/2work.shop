@@ -1,23 +1,22 @@
 const express = require('express')
 const config = require('config')
+const body_parser = require('body-parser')
 const {Client} = require('pg')
+const knex = require('./knex/knex')
 
 
 const app = express()
-app.use('/api/auth', require('./routes/auth.routes'))
+app.use(express.json())
+app.use(body_parser.json())
+app.use(body_parser.urlencoded({ extended: true }))
+app.use('/auth', require('./routes/auth'))
+app.use('/api', require('./routes/api'))
 
 const PORT = config.get('port') || 8000
-const postgres = new Client({
-    host: "localhost",
-    user: "postgres",
-    port: 5433,
-    password: "root",
-    database: "postgres"
-})
+
 
 async function start() {
     try {
-        await postgres.connect()
         app.listen(PORT, () => console.log(`App has been started at port ${PORT}...`))
     } catch (e) {
         console.log('Server error', e.message)

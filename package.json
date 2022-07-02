@@ -25,11 +25,13 @@
   "homepage": "https://github.com/is-paranoia/2work.shop#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "concurrently": "^7.2.2",
     "config": "^3.3.7",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^2.1.0",
     "pg": "^8.7.3"
   },
   "devDependencies": {
