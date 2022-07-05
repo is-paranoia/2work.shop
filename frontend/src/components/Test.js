@@ -8,7 +8,7 @@ const Test = () => {
     }, [])
 
     let getUsers = async () => {
-        let response = await fetch('/api/users')
+        let response = await fetch('/api/orders')
         
         if (response.ok) {
             let data = await response.json()
@@ -22,7 +22,7 @@ const Test = () => {
         <div>
             {
                 users.map((user) => 
-                    <div>{user.email}</div>
+                    <div>{JSON.stringify(user)}</div>
                 )
             } 
         </div>
