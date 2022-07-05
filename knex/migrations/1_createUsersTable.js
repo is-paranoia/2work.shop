@@ -5,8 +5,7 @@ exports.up = function (knex) {
             table.string('nickname').notNullable();
             table.string('email').notNullable();
             table.string('password').notNullable();
-            table.string('wallet').notNullable();
-            //table.foreign('orders').references('id').inTable('Users');
+            table.string('wallet');
             table.boolean('isAdmin').notNullable().defaultTo(0);
             table.datetime('lastLogin').notNullable().defaultTo(knex.fn.now());
             table.datetime('registerDate').notNullable().defaultTo(knex.fn.now());
