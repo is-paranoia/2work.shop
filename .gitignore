@@ -25,3 +25,5 @@ yarn-error.log*
 config/
 .vscode
 knexfile.js
+
+**/media

@@ -1,0 +1,16 @@
+.MainPage {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 100%;
+    width: 80%;
+    justify-content: center;
+}
+
+.videoBg {
+    position: absolute;
+    margin-left: 0;
+    margin-top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
