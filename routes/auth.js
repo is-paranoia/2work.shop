@@ -14,6 +14,8 @@ router.post(
         body('password', 'Password error').isLength({min: 6})
     ],
     async (req, res) => {
+        console.log("post on register")
+        console.log(req.body)
     try {
         const errors = validationResult(req)
         if (!errors.isEmpty()){
@@ -23,7 +25,7 @@ router.post(
                 test: req.body
             })
         }
-        const {email, password} = req.body
+        const {email, nickname, wallet, password} = req.body
         const existUser = await knex('Users').where("email", email)
 
         if (existUser.length !== 0) {
@@ -31,7 +33,7 @@ router.post(
         }
         
         const hashedPassword = await bcrypt.hash(password, 12)
-        const user = await knex('Users').insert({ email: email, password: hashedPassword })
+        const user = await knex('Users').insert({ email: email, nickname: nickname, wallet: wallet, password: hashedPassword })
         res.status(201).json({message: "User has been created"})
 
     } catch (e) {
@@ -49,6 +51,7 @@ router.post(
         body('password', 'Password error').exists()
     ], async (req, res) => {
     try {
+        console.log("post on login")
         console.log(req.body)
         const errors = validationResult(req)
         if (!errors.isEmpty()){
@@ -58,7 +61,7 @@ router.post(
             })
         }
         
-        const {email, password} = req.body
+        const {nickname, email, wallet, password} = req.body
 
         const user = await knex('Users').where("email", email).first()
 
@@ -80,8 +83,9 @@ router.post(
             {expiresIn: '1h'}
             
         )
+        console.log("jwt = ", token)
 
-        res.json({token, userId: user.id})
+        res.json({token: token, userId: user.id})
 
     } catch (e) {
         res.status(500).json({

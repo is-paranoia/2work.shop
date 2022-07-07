@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import "./Header.css"
 import Navbar from "./Navbar/Navbar";
+import UserInfo from "./Navbar/UserInfo/UserInfo";
 
 const Header = () => {
 
@@ -14,7 +15,7 @@ const Header = () => {
                 <Navbar/>
             </div>
             <div className="user-info">
-                0x18da...ErCa
+                <UserInfo />
             </div>
         </div>
     )
