@@ -1,0 +1,122 @@
+.WebSocketChat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 450px;
+    border: 2px solid #323232;
+    border-radius: 8px;
+    margin: 8px;
+    box-sizing: border-box;
+}
+
+.chatTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    width: 100%;
+    background-color: #323232;
+    color: #ffffff;
+}
+
+.chatBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 auto;
+    overflow: auto;
+    max-height: 338px;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.message {
+    display: flex;
+    overflow-wrap: break-word;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    padding: 2px;
+    margin-top: 8px;
+    border-radius: 4px;
+    background-color: #d1d1d1;
+}
+
+#friend {
+    background-color: #323232;
+    color: #ffffff;
+}
+
+#me {
+    background-color: lightgray;
+    color: #323232;
+}
+
+.chatInputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    width: 100%;
+    background-color: #323232;
+    color: #ffffff;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.chatInputs input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border: 0px solid transparent;
+    border-radius: 4px;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.sendBtn {
+    appearance: none;
+    background-color: transparent;
+    border: 0px solid transparent;
+    color: #ffffff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0;
+    outline: none;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 30%;
+    height: 100%;
+    margin-left: 8px;
+    will-change: transform;
+    text-transform: uppercase;
+}
+  
+.sendBtn:disabled {
+    pointer-events: none;
+}
+  
+.sendBtn:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: scale(1.1)
+}
+  
+.sendBtn:active {
+    box-shadow: none;
+    transform: translateY(0);
+}
