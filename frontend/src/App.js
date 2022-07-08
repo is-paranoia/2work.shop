@@ -1,7 +1,8 @@
 import {
   BrowserRouter as Router,
   Route,
-  Routes
+  Routes,
+  Navigate
 } from "react-router-dom";
 import {useMediaQuery} from "react-responsive";
 
@@ -13,13 +14,14 @@ import OrdersPage from "./pages/OrdersPage/OrdersPage";
 import Footer from "./components/Footer/Footer";
 import { useAuth } from "./hooks/auth.hook";
 import { AuthContext } from "./context/AuthContext";
+import AuthPage from "./pages/AuthPage/AuthPage";
+import CreateOrder from "./pages/CreateOrder/CreateOrder";
 
 function App() {
-  const [loading, setLoading] = useState(true)
+  //const [loading, setLoading] = useState(true)
 
-  const {token, login, logout, userId} = useAuth()
+  const { token, userId, login, logout, } = useAuth()
   const isAuthenticated = !!token
-
   useEffect(() =>{
   }, [])
   const isDesktop = useMediaQuery({
@@ -44,7 +46,7 @@ function App() {
 
   return (
     <AuthContext.Provider value={{
-      token, login, logout, userId, isAuthenticated
+      token: token, login: login, logout: logout, userId: userId, isAuthenticated: isAuthenticated
     }}>
     <Router>
             <div style={{position: "absolute", right: 0, bottom: 0}}>
@@ -63,6 +65,8 @@ function App() {
                         </Fragment>
                     }/>
                     <Route path="/orders" element={<OrdersPage />} exact/>
+                    <Route path="/auth/login" element={<AuthPage />} exact/>
+                    <Route path="/create_order" element={<CreateOrder />} exact/>
                 </Routes>
             </div>
             <Footer/>

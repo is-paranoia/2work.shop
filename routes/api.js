@@ -5,6 +5,7 @@ const config = require('config')
 const {check, validationResult} = require('express-validator')
 const router = Router()
 const knex = require('../knex/knex')
+const auth = require("../middleware/auth.middleware")
 
 
     router.get(
@@ -13,6 +14,23 @@ const knex = require('../knex/knex')
             try {
                 knex.raw('select * from "Users"').then((users) =>{
                     res.send(users.rows)
+                })
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
+    router.get(
+        '/user', auth,
+        (req, res) => {
+            try {
+                let query = knex("Users").select("nickname").where("id", req.user.userId).first()
+                nickname = undefined
+                query.then(response => {
+                    res.send(response)
                 })
             } catch (e) {
                 res.status(500).json({
@@ -124,9 +142,10 @@ const knex = require('../knex/knex')
     )
     
     router.get(
-        '/orders',
+        '/orders', auth,
         (req, res) => {
             try {
+                console.log("GET orders by user id", req.user.userId)
                 knex.raw('select * from "Orders"').then((orders) =>{
                     res.send(orders.rows)
                 }).catch(err => console.log('Transaction', err))
@@ -137,6 +156,34 @@ const knex = require('../knex/knex')
             }
         }
     )
+
+    router.post(
+        '/create_order', auth,
+        async (req, res) => {
+            console.log("post on create_order")
+            console.log(req.body)
+        try {
+            const {title, description, price} = req.body
+            //const existUser = await knex('Users').where("email", email)
+    
+            /*if (existUser.length !== 0) {
+                return res.status(400).json({message: "User is already exists"})
+            }*/
+            
+            //const hashedPassword = await bcrypt.hash(password, 12)
+            const order_dct = { title: title, description: description, 
+                authorId: req.user.userId, workerId: req.user.userId, price: price, isStarted: false, stage: "created"}
+            console.log(order_dct)
+            const order = await knex('Orders').insert(order_dct)
+            res.status(201).json({message: "Order has been created"})
+    
+        } catch (e) {
+            res.status(500).json({
+                message: "Server error",
+                error: e.message
+            })
+        }
+    })
 
 
 
