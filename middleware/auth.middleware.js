@@ -19,6 +19,11 @@ module.exports = (req, res, next) => {
         next()
 
     } catch (e) {
-        console.log(e)
+        if (e instanceof jwt.TokenExpiredError){
+            console.log("Auth token has been expired. Login again.")
+            req.user = null
+        } else {
+            console.log(e)
+        }
     }
 }

@@ -15,7 +15,7 @@ const Navbar = () => {
                 (isActive ? "navbar-item-active" : "navbar-item")}>Find Job</NavLink>
             <NavLink to="/create_order" className={({ isActive }) =>
                 (isActive ? "navbar-item-active" : "navbar-item")}>Find Talent</NavLink>
-            <NavLink to="/my_orders" className={({ isActive }) =>
+            <NavLink to="/my-orders" className={({ isActive }) =>
                 (isActive ? "navbar-item-active" : "navbar-item")}>My Orders</NavLink>
         </div>
     )
