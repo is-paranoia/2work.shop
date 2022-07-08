@@ -10,7 +10,7 @@ const OrderCard = ({order}) => {
     return (
         
         <div className="OrderCard">
-            <Link className="link" to={`/orders/id/${order.id}`}>
+            <Link className="link" to={`/orders/${order.id}`}>
                 <div className="title">{order.title}</div>
             </Link>
             <div className="id">#{order.id}</div>
