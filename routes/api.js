@@ -28,7 +28,6 @@ const auth = require("../middleware/auth.middleware")
         (req, res) => {
             try {
                 let query = knex("Users").select("nickname").where("id", req.user.userId).first()
-                nickname = undefined
                 query.then(response => {
                     res.send(response)
                 })
