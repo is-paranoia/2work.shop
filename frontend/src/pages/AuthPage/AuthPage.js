@@ -32,7 +32,7 @@ const AuthPage = (isAuthenticated) => {
                     console.log("AGA? = ", final)
                     //localStorage.setItem("userData", JSON.stringify({userId: final.userId, token: final.token}))
                     auth.login(final.token, final.userId)
-                    //navigate("orders")
+                    navigate("..", { replace: true })
                 })
             //console.log("DATA HERE?? = ", JSON.stringify(final))
             

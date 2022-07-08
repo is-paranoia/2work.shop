@@ -32,7 +32,7 @@ const UserInfo = () => {
 
     return (
         <div className="UserInfo">
-                {user.nickname}
+                {user? user.nickname  : <Link className="linkLogin" to={"/auth/login"}>Login</Link>}
         </div>
     )
 }
