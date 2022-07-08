@@ -17,21 +17,24 @@ const OrdersPage = () => {
     }, [])
 
     let getOrders = async () => {
-        const user = JSON.parse(localStorage.getItem("userData"))
-        console.log("UserTOken", user.token)
-        let response = await fetch('/api/orders', {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + user.token,
-              }
-        })
-        
-        if (response.ok) {
-            let data = await response.json()
-            setOrders(data)
-        } else {
-            console.log('Error')
+        try {
+            const user = JSON.parse(localStorage.getItem("userData"))
+            console.log("User", { token : user.token, userId: user.userId })
+            let response = await fetch('/api/orders', {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.token,
+                  }
+            })
+            if (response.ok) {
+                let data = await response.json()
+                setOrders(data)
+            } else {
+                console.log('Error')
+            }
+        } catch (e) {
+            console.log(e)
         }
     }
 
