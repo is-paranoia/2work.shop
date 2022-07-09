@@ -10,17 +10,14 @@ const MainBanner = () => {
     return (
         <div className="MainBanner">
             <div className="leftSide">
+                <div className="circle"></div>
                 <div>From </div>
                 <div>best talents</div>
-                <div>- - - - - - - - - - - - -</div>
                 <div>to</div>
                 <div>best clients</div>
             </div>
             <div className="center">
                 <img className="imgTeam" src={teamImg}></img>
-            </div>
-            <div className="rightSide">
-
             </div>
         </div>
     )

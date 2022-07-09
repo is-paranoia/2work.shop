@@ -63,7 +63,7 @@ const AuthPage = (isAuthenticated) => {
         <div className="AuthPage">
            <div className="authForm">
                <h1>Log in to your account</h1>
-               <div className="fields">
+               <div className="auth-fields">
                     <input className="nickname-field" name="nickname" placeholder="Nickname" onChange={changeHandler} />
                     <input className="email-field" name="email" placeholder="Email" onChange={changeHandler} />
                     <input className="wallet-field" name="wallet" placeholder="Wallet" onChange={changeHandler} />

@@ -17,6 +17,7 @@ import { AuthContext } from "./context/AuthContext";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import CreateOrder from "./pages/CreateOrder/CreateOrder";
 import OrderPage from "./pages/OrderPage/OrderPage";
+import MyOrdersPage from "./pages/MyOrdersPage/MyOrdersPage";
 
 function App() {
   //const [loading, setLoading] = useState(true)
@@ -68,7 +69,7 @@ function App() {
                     <Route path="/orders" element={<OrdersPage />} exact/>
                     <Route path="/auth/login" element={<AuthPage />} exact/>
                     <Route path="/create_order" element={<CreateOrder />} exact/>
-                    <Route path="/my-orders" element={<OrdersPage />} exact/>
+                    <Route path="/my-orders" element={<MyOrdersPage />} exact/>
                     <Route path="/orders/:id" element={<OrderPage />} exact/>
                 </Routes>
             </div>

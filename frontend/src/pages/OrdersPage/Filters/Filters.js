@@ -8,7 +8,19 @@ const Filters = () => {
 
     return (
         <div className="Filters">
-            Filters here
+            <div className="filtersHeader">Filters</div>
+            <div className="filter">
+                <input type={"checkbox"}/><label>Checkbox 1</label>
+            </div>
+            <div className="filter">
+                <input type={"checkbox"}/><label>Checkbox 2</label>
+            </div>
+            <div className="filter">
+                <input type={"checkbox"}/><label>Checkbox 3</label>
+            </div>
+            <div className="filter">
+                <input type={"checkbox"}/><label>Checkbox 4</label>
+            </div>
         </div>
     )
 }

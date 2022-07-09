@@ -3,6 +3,13 @@ import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import "./OrderPage.css";
 import { AuthContext } from "../../context/AuthContext";
 import OrderInfo from "./OrderInfo/OrderInfo";
+import OrderActivity from "./OrderActivity/OrderActivity";
+import WebSocketChat from "../../components/WebSocketChat/WebSocketChat";
+import io from "socket.io-client";
+
+
+const PORT = 8000
+const socket = io.connect(`http://localhost:${PORT}`) //change this to website url!!!
 
 const OrderPage = () => {
 
@@ -38,6 +45,10 @@ const OrderPage = () => {
     return (
         <div className="OrderPage">
             <OrderInfo orderData={order}/>
+            <div className="sideBar">
+                <OrderActivity orderData={order}/>
+                <WebSocketChat socket={socket} chatId={params.id}/>
+            </div>
         </div>
     )
 }
