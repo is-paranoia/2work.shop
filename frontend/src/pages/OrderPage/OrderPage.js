@@ -46,7 +46,7 @@ const OrderPage = () => {
         <div className="OrderPage">
             <OrderInfo orderData={order}/>
             <div className="sideBar">
-                <OrderActivity />
+                <OrderActivity orderData={order}/>
                 <WebSocketChat socket={socket} chatId={params.id}/>
             </div>
         </div>

@@ -100,6 +100,7 @@ const auth = require("../middleware/auth.middleware")
             try {
                 knex.raw(`SELECT * FROM "Orders" WHERE "workerId"=${req.params.workerId} `).then((orders) =>{
                     res.send(orders.rows)
+                    console.log("worker orders ", orders)
                 }).catch(err => console.log('Transaction', err))
             } catch (e) {
                 res.status(500).json({

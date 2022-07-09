@@ -1,9 +1,22 @@
 .MainPage {
     display: flex;
+    flex-direction: column;
     flex: 1 1 auto;
     min-height: 100%;
     width: 80%;
-    justify-content: center;
+    align-items: center;
+}
+
+.hold {
+    display: flex;
+    background-color: #323232;
+}
+
+.hd1 {
+    width: 80%;
+    height: 56px;
+    border-radius: 32px;
+    margin-top: 32px;
 }
 
 .videoBg {
