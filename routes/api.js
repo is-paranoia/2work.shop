@@ -286,6 +286,22 @@ const auth = require("../middleware/auth.middleware")
         }
     )
 
+    router.get(
+        '/chat/:id', auth,
+        (req, res) => {
+            try {
+                let query = knex("ChatMessages").select("*").where("chatId", req.params.id)
+                query.then(response => {
+                    res.send(response)
+                }).catch(err => console.log('Transaction', err))
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
 
 
 module.exports = router

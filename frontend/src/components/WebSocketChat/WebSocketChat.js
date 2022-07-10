@@ -26,13 +26,36 @@ const WebSocketChat = ({socket, chatId}) => {
         return () => {
           test = true;
         };
-      }, [history]);
+    }, [history]);
 
+    const getHistory = async () => {
+        const user = JSON.parse(localStorage.getItem("userData"))
+        try {
+            await fetch(`/api/chat/${chatId}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.token,
+                  },
+                method: "GET"
+            }).then((response) => {
+                return response.json()
+            }).then((messages) => {
+                console.log(messages);
+                messages.forEach(element => {
+                     setHistory((list) => [...list, element]);
+                });
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
     
     const joinChat = async () => {
         try {
             socket.emit("joinChat", chatId)
             setChatJoined(true)
+            getHistory()
         } catch (e) {
             console.log(e)
         }
@@ -46,7 +69,7 @@ const WebSocketChat = ({socket, chatId}) => {
         if (currentMessage !== "") {
             const message = {
                 chatId: chatId,
-                user: user.userId,
+                userId: user.userId,
                 message: currentMessage,
                 timestamp: new Date(Date.now()).getTime()
             }
@@ -78,7 +101,7 @@ const WebSocketChat = ({socket, chatId}) => {
             </div>
             <div className="chatBody">
                 {history.map((messageData)=> {
-                    return <div className="message" id={user.userId === messageData.user ? "me" : "friend"}>{messageData.message}</div>
+                    return <div className="message" id={user.userId === messageData.userId ? "me" : "friend"}>{messageData.message}</div>
                 })}
             </div>
             <div className="chatInputs">
