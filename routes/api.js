@@ -110,12 +110,26 @@ const auth = require("../middleware/auth.middleware")
         }
     )
 
-
     router.get(
         '/orders/author_id/:authorId',
         (req, res) => {
             try {
                 knex.raw(`SELECT * FROM "Orders" WHERE "authorId"=${req.params.authorId} `).then((orders) =>{
+                    res.send(orders.rows)
+                }).catch(err => console.log('Transaction', err))
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
+    router.get(
+        '/orders/tag_id/:id',
+        (req, res) => {
+            try {
+                knex.raw(`SELECT * FROM "Tags" WHERE "id"=${req.params.id} `).then((orders) =>{
                     res.send(orders.rows)
                 }).catch(err => console.log('Transaction', err))
             } catch (e) {
@@ -152,7 +166,8 @@ const auth = require("../middleware/auth.middleware")
                 }).catch(err => console.log('Transaction', err))
             } catch (e) {
                 res.status(500).json({
-                    message: "Server error"
+                    message: "Server error {api:orders}",
+                    error: e.message
                 })
             }
         }
@@ -163,28 +178,113 @@ const auth = require("../middleware/auth.middleware")
         async (req, res) => {
             console.log("post on create_order")
             console.log(req.body)
-        try {
-            const {title, description, price} = req.body
-            //const existUser = await knex('Users').where("email", email)
-    
-            /*if (existUser.length !== 0) {
-                return res.status(400).json({message: "User is already exists"})
-            }*/
-            
-            //const hashedPassword = await bcrypt.hash(password, 12)
-            const order_dct = { title: title, description: description, 
-                authorId: req.user.userId, workerId: req.user.userId, price: price, isStarted: false, stage: "created"}
-            console.log(order_dct)
-            const order = await knex('Orders').insert(order_dct)
-            res.status(201).json({message: "Order has been created"})
-    
-        } catch (e) {
-            res.status(500).json({
-                message: "Server error",
-                error: e.message
-            })
+            try {
+                const {title, description, price} = req.body
+                const order_dct = { title: title, description: description, 
+                    authorId: req.user.userId, price: price}
+                console.log(order_dct)
+                const order = await knex('Orders').insert(order_dct).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "Order has been created"})
+        
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:create_order}",
+                    error: e.message
+                })
+            }
         }
-    })
+    )
+
+    router.get(
+        '/comments/:order_id',
+        (req, res) => {
+            try {
+                knex.raw(`SELECT * FROM "Comments" WHERE "orderId"=${req.params.order_id} `).then((comments) =>{
+                    res.send(comments.rows)
+                }).catch(err => console.log('Transaction', err))
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
+    router.post(
+        '/comments/:order_id', auth,
+        async (req, res) => {
+            console.log("post on comments")
+            console.log(req.body)
+            try {
+                const {message} = req.body
+                const comment_dct = { orderId: req.params.order_id, userId: req.user.userId, message: message}
+                console.log(comment_dct)
+                const comment = await knex('Comments').insert(comment_dct).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "Comment has been created"})
+        
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:post:comments}",
+                    error: e.message
+                })
+            }
+        }
+    )
+
+    router.get(
+        '/tags',
+        async (req, res) => {
+            try {
+                knex.raw(`SELECT * FROM "Tags"`).then((tags) =>{
+                    res.send(tags.rows)
+                }).catch(err => console.log('Transaction', err))
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
+    router.post(
+        '/tags/:tag_id', auth,
+        async (req, res) => {
+            console.log("post on tags")
+            console.log(req.body)
+            try {
+                const {tag} = req.body
+                const tag_dct = { tag: tag}
+                console.log(tag_dct)
+                const added_tag = await knex('Tags').insert(tag_dct).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "Tag has been created"})
+        
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:post:comments}",
+                    error: e.message
+                })
+            }
+        }
+    )
+
+    router.post(
+        '/chat/:chat_id', auth,
+        async (req, res) => {
+            console.log("post on chat")
+            console.log(req.body)
+            try {
+                const {chatId, user, message, timestamp} = req.body
+                const message_dct = { chatId: chatId, userId: user, message: message, timestamp: timestamp}
+                const added_message = await knex('ChatMessages').insert(message_dct).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "ChatMessage has been created"})
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:post:comments}",
+                    error: e.message
+                })
+            }
+        }
+    )
 
 
 

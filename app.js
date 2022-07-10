@@ -37,7 +37,7 @@ const socket = require("socket.io")(http, {
 async function start() {
     try {
         
-        http.listen(PORT, () => console.log(`App has been started at port ${PORT}...}`))
+        http.listen(PORT, () => console.log(`App has been started at port ${PORT}...`))
         socket.on("connection", (socket) => {
             console.log("Socket connected, ID = ", socket.id)
             
