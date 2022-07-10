@@ -173,7 +173,7 @@ const auth = require("../middleware/auth.middleware")
             
             //const hashedPassword = await bcrypt.hash(password, 12)
             const order_dct = { title: title, description: description, 
-                authorId: req.user.userId, workerId: req.user.userId, price: price, isStarted: false, stage: "created"}
+                authorId: req.user.userId, price: price}
             console.log(order_dct)
             const order = await knex('Orders').insert(order_dct)
             res.status(201).json({message: "Order has been created"})

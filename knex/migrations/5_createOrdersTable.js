@@ -5,10 +5,9 @@ exports.up = function (knex) {
             table.string('title').notNullable();
             table.string('description').notNullable();
             table.integer('authorId').notNullable().references('id').inTable('Users').index().onDelete("SET NULL");
-            table.integer('workerId').notNullable().references('id').inTable('Users').index().onDelete("SET NULL");
+            table.integer('workerId').references('id').inTable('Users').index().onDelete("SET NULL");
+            table.integer('tagId').references('id').inTable('Tags').index().onDelete("SET NULL");
             table.float('price').notNullable();
-            table.boolean('isStarted').notNullable().defaultTo(0);
-            table.string('stage').notNullable();
             table.datetime('createdAt').notNullable().defaultTo(knex.fn.now());
             table.datetime('endedAt');
         });

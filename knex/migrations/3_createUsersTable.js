@@ -6,8 +6,7 @@ exports.up = function (knex) {
             table.string('email').notNullable();
             table.string('password').notNullable();
             table.string('wallet');
-            table.boolean('isAdmin').notNullable().defaultTo(0);
-            table.datetime('lastLogin').notNullable().defaultTo(knex.fn.now());
+            table.integer('roleId').notNullable().references('id').inTable('Roles').index().defaultTo(1).onDelete("SET NULL");
             table.datetime('registerDate').notNullable().defaultTo(knex.fn.now());
         });
 };
