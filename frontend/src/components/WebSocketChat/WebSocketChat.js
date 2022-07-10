@@ -51,7 +51,23 @@ const WebSocketChat = ({socket, chatId}) => {
                 timestamp: new Date(Date.now()).getTime()
             }
             await socket.emit("sendMessage", message)
-            setHistory((list) => [...list, message]);
+            try {
+                const user = JSON.parse(localStorage.getItem("userData"))
+                const response = await fetch(`/api/chat/${chatId}`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + user.token,
+                      },
+                    body: JSON.stringify(message),
+                    method: "POST"
+                })
+                if (response.ok) {
+                    setHistory((list) => [...list, message]);
+                }
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 
