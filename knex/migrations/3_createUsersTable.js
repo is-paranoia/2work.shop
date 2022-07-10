@@ -5,10 +5,8 @@ exports.up = function (knex) {
             table.string('nickname').notNullable();
             table.string('email').notNullable();
             table.string('password').notNullable();
-            table.string('wallet').notNullable();
-            //table.foreign('orders').references('id').inTable('Users');
-            table.boolean('isAdmin').notNullable().defaultTo(0);
-            table.datetime('lastLogin').notNullable().defaultTo(knex.fn.now());
+            table.string('wallet');
+            table.integer('roleId').notNullable().references('id').inTable('Roles').index().defaultTo(1).onDelete("SET NULL");
             table.datetime('registerDate').notNullable().defaultTo(knex.fn.now());
         });
 };

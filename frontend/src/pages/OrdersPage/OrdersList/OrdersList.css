@@ -1,0 +1,19 @@
+.OrdersList {
+    display: flex;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    flex-direction: column;
+    min-height: 100%;
+    width: 624px;
+}
+
+.counter {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 36px;
+    width: 100%;
+    font-size: 24px;
+    box-sizing: border-box;
+    padding-left: 16px;
+}
