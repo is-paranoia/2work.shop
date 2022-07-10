@@ -302,6 +302,39 @@ const auth = require("../middleware/auth.middleware")
         }
     )
 
+    router.get(
+        '/responds/:id', auth,
+        (req, res) => {
+            try {
+                let query = knex("Responds").select("*").where("orderId", req.params.id)
+                query.then(response => {
+                    res.send(response)
+                }).catch(err => console.log('Transaction', err))
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
+    router.post(
+        '/responds/:id', auth,
+        async (req, res) => {
+            console.log("post on responds")
+            try {
+                const respond_dct = { orderId: req.params.id, userId: req.user.userId}
+                const added_respond = await knex('Responds').insert(respond_dct).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "ChatMessage has been created"})
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:post:responds}",
+                    error: e.message
+                })
+            }
+        }
+    )
+
 
 
 module.exports = router
