@@ -5,22 +5,41 @@ import "./Filters.css";
 const Filters = () => {
 
     let navigate = useNavigate();
+    const [filters, setFilters] = useState([])
+
+    useEffect(()=>{
+        getFilters()
+    }, [])
+
+    const getFilters = async () => {
+        try{
+            const user = JSON.parse(localStorage.getItem("userData"))
+            const response = await fetch(`/api/tags`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.token,
+                  },
+                method: "GET"
+            })
+            if (response.ok) {
+                const data = await response.json()
+                console.log("Filters", data);
+                setFilters(data)
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return (
         <div className="Filters">
             <div className="filtersHeader">Filters</div>
-            <div className="filter">
-                <input type={"checkbox"}/><label>Checkbox 1</label>
+            {filters.map((filter) => {
+                return <div className="filter">
+                <input type={"checkbox"}/><label>{filter.tag}</label>
             </div>
-            <div className="filter">
-                <input type={"checkbox"}/><label>Checkbox 2</label>
-            </div>
-            <div className="filter">
-                <input type={"checkbox"}/><label>Checkbox 3</label>
-            </div>
-            <div className="filter">
-                <input type={"checkbox"}/><label>Checkbox 4</label>
-            </div>
+            })}
         </div>
     )
 }
