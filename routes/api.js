@@ -274,8 +274,8 @@ const auth = require("../middleware/auth.middleware")
             console.log("post on chat")
             console.log(req.body)
             try {
-                const {chatId, user, message, timestamp} = req.body
-                const message_dct = { chatId: chatId, userId: user, message: message, timestamp: timestamp}
+                const {chatId, userId, message, timestamp} = req.body
+                const message_dct = { chatId: chatId, userId: userId, message: message, timestamp: timestamp}
                 const added_message = await knex('ChatMessages').insert(message_dct).catch(err => console.log('Transaction', err))
                 res.status(201).json({message: "ChatMessage has been created"})
             } catch (e) {
