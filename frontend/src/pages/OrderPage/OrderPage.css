@@ -14,3 +14,13 @@
     padding-right: 8px;
     padding-bottom: 8px;
 }
+
+.mainOrderContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+    width: 900px;
+    top: 0;
+    box-sizing: border-box;
+}
