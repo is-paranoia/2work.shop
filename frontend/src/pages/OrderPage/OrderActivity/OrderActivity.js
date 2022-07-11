@@ -78,7 +78,7 @@ const OrderActivity = ({orderData}) => {
                 return <div className="respond">
                     <div>{respond.userId}</div>
                     { orderData.authorId === user.userId ? <button className="buttonSubmitRespond" value={respond.userId} onClick={(event)=>{submitRespondHandler(event.target.value)}}>Respond</button> :
-                    <button className="buttonDelete" disabled={orderData.authorId !== user.userId ? false : true}>Delete</button>}
+                    <button className="buttonDeleteRespond" disabled={respond.userId === user.userId ? false : true}>Delete</button>}
                     </div>
             })}
             </div>

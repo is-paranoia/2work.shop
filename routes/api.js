@@ -129,7 +129,7 @@ const auth = require("../middleware/auth.middleware")
         '/orders/tag_id/:id',
         (req, res) => {
             try {
-                knex.raw(`SELECT * FROM "Tags" WHERE "id"=${req.params.id} `).then((orders) =>{
+                knex.raw(`SELECT * FROM "Orders" WHERE "tagId"=${req.params.id} `).then((orders) =>{
                     res.send(orders.rows)
                 }).catch(err => console.log('Transaction', err))
             } catch (e) {
