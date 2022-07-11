@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
+import EtherCard from "./EtherCard/EtherCard";
 import "./Header.css"
 import Navbar from "./Navbar/Navbar";
 import UserInfo from "./Navbar/UserInfo/UserInfo";
@@ -15,8 +16,9 @@ const Header = () => {
                 <Navbar/>
             </div>
             <div className="user-info">
-                <UserInfo />
+                <UserInfo /> 
             </div>
+            <EtherCard />
         </div>
     )
 }
