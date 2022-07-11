@@ -38,15 +38,13 @@ const OrderInfo = ({orderData}) => {
 
     return (
         <div className="OrderInfo">
-            <div className="orderInfoLayout">
-                <div className="order-id">Order ID: #{order.id}</div>
-                <div className="order-title">{order.title}</div>
-                <div className="order-description">{order.description}</div>
-                <div className="order-price">{order.price}</div>
-                <div className="order-worker">{order.workerId}</div>
-                <div className="order-author">{order.authorId}</div>
-                <div className="order-time">{order.createdAt}</div>
-            </div>
+            <div className="order-id">Order ID: #{order.id}</div>
+            <div className="order-title">{order.title}</div>
+            <div className="order-description">{order.description}</div>
+            <div className="order-price">{order.price}</div>
+            <div className="order-worker">{order.workerId}</div>
+            <div className="order-author">{order.authorId}</div>
+            <div className="order-time">{order.createdAt}</div>
         </div>
     )
 }
