@@ -195,6 +195,37 @@ const auth = require("../middleware/auth.middleware")
         }
     )
 
+    router.delete(
+        '/orders/:id', auth,
+        async (req, res) => {
+            console.log("delete on orders")
+            try {
+                let orderId = req.params.id
+                console.log("Order", orderId);
+                const order = await knex("Orders").where("id", orderId).first().catch(err => console.log('Transaction', err))
+                console.log(order);
+                console.log("Author", order.authorId);
+                console.log("User", req.user.userId);
+                if (req.user.userId == order.authorId){
+                    console.log("Delete order", req.user.userId)
+                    console.log("Author ", order.authorId);
+                    const del_order = await knex('Orders').del().where("id", orderId).catch(err => console.log('Transaction', err))
+                    console.log(del_order);
+                    res.status(201).json({message: "Order has been delete"})
+                } else {
+                    res.status(500).json({
+                        message: "DB error {api:delete:orders}"
+                    })
+                }
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:delete:orders}",
+                    error: e.message
+                })
+            }
+        }
+    )
+
     router.get(
         '/comments/:order_id',
         (req, res) => {
