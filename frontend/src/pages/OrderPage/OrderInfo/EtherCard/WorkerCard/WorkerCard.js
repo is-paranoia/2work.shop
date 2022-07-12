@@ -1,23 +1,29 @@
 import React, {useState, useEffect, useContext} from "react";
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import {ethers} from "ethers"
-import "./EtherCard.css"
+import "./WorkerCard.css"
 
-const EtherCard = () => {
+const WorkerCard = ({orderData, status}) => {
+
+    const user = JSON.parse(localStorage.getItem("userData"))
+    const params = useParams()
+    let navigate = useNavigate();
 
     const [wallet, setWallet] = useState("")
     const [balance, setBalance] = useState(0)
     const [error, setError] = useState("")
     const [buttonText, setButtonText] = useState("Connect wallet")
     const [sign, setSign] = useState("")
+    const [tx, setTx] = useState({
+        txHash: "",
+        value: 0,
+        status: 0,
+        comment: ""
+    })
 
     useEffect(() => {
-        getWallet()
-    }, [])
-
-    let getWallet = async () => {
         
-    }
+    }, [status, wallet])
 
     const walletSignHandler = async (wallet) => {
         await window.ethereum.request({method: "personal_sign", params: [wallet, 'Hello']}).then((sign)=>{
@@ -25,9 +31,7 @@ const EtherCard = () => {
         })
     }
 
-    //0xa52c346b5f0257c4364a699cc293eb951f04e9268d27c0950a028d2d8989aa5000352fe02c6185783eae09f916c12c6eba0b84005b636077cfc6da12e1b84b4d1b
-    //0x2f8fa33de106036d1bf8eb04afec9ace93575720e0fb5b9f9a43e90e7a4926cd7948c2ad3ea63e16c3c13fa8fa150459a7d7128eebdf31579c08eaafa571b0231c
-
+    
     const chainChangeHandler = () => {
         if (window.ethereum.networkVersion !== 3) {
             changeChain()
@@ -60,6 +64,54 @@ const EtherCard = () => {
             
         } else {
             setError('Install MetaMask')
+        }
+    }
+
+    const sendEthHandler = async () => {
+        let sendedTx = {
+            txHash: "",
+            value: 0,
+            status: 0,
+            comment: ""
+        }
+        const addr = ""
+        if (wallet !== "") {
+            console.log("RECEIVE ETH");
+            //await window.ethereum.send("eth_requestAccount")
+            const provider = new ethers.providers.Web3Provider(window.ethereum)
+            const signer = provider.getSigner()
+            const abi = [
+                "function test(address payable _tester, uint _amount) public"
+            ]
+            const contract = new ethers.Contract(addr, abi, signer);
+            const tx = await contract.test(wallet, 23)
+            sendedTx.txHash = tx.hash
+            sendedTx.value = ethers.utils.formatEther(tx.value.toString())
+            let receipt = await tx.wait()
+            if (receipt.status == 1) {
+                sendedTx.status = 1
+                sendedTx.comment = "Good"
+            } else {
+                sendedTx.status = receipt.status
+                sendedTx.comment = "Error"
+            }
+            try {
+                const user = JSON.parse(localStorage.getItem("userData"))
+                const data = await fetch(`/api/payments/${params.id}`, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + user.token,
+                    },
+                    body: JSON.stringify(sendedTx),
+                    method: "POST"
+                })
+                console.log("Payment receive", data)
+            } catch (e) {
+                console.log(e)
+            }
+            console.log(tx);
+            console.log(receipt);
         }
     }
 
@@ -102,14 +154,21 @@ const EtherCard = () => {
     window.ethereum.on('chainChanged', chainChangeHandler)
 
     return (
-        <div className="EtherCard">
-            <button className="walletConnectButton" onClick={connectWalletHandler}>
+        <div className="WorkerCard">
+            <div><h2>Worker</h2></div>
+            { wallet == "" ? <button className="walletWorkerConnectButton" onClick={connectWalletHandler}>
                 {buttonText}
-            </button>
-            <div>{balance}</div>
-            <div>{error}</div>
+            </button> : <div></div>}
+            
+            
+            { status == "Wait worker receive" ? <button className="sendEthWorkerButton" onClick={sendEthHandler}>
+                Receive payment
+            </button> : <button className="sendEthWorkerButton" disabled={true} onClick={sendEthHandler}>
+                Wait author
+            </button>}
+
         </div>
     )
 }
 
-export default EtherCard
+export default WorkerCard

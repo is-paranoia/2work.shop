@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
+import EtherCard from "./EtherCard/EtherCard";
 import "./OrderInfo.css";
 
 const OrderInfo = ({orderData}) => {
@@ -45,6 +46,7 @@ const OrderInfo = ({orderData}) => {
             <div className="order-worker">{order.workerId}</div>
             <div className="order-author">{order.authorId}</div>
             <div className="order-time">{order.createdAt}</div>
+            <EtherCard order={order}/>
         </div>
     )
 }
