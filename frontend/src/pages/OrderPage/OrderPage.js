@@ -6,6 +6,7 @@ import OrderInfo from "./OrderInfo/OrderInfo";
 import OrderActivity from "./OrderActivity/OrderActivity";
 import WebSocketChat from "../../components/WebSocketChat/WebSocketChat";
 import io from "socket.io-client";
+import OrderComments from "./OrderComments/OrderComments";
 
 
 const PORT = 8000
@@ -44,7 +45,10 @@ const OrderPage = () => {
 
     return (
         <div className="OrderPage">
-            <OrderInfo orderData={order}/>
+            <div className="mainOrderContent">
+                <OrderInfo orderData={order}/>
+                <OrderComments order={order} />
+            </div>
             <div className="sideBar">
                 <OrderActivity orderData={order}/>
                 <WebSocketChat socket={socket} chatId={params.id}/>
