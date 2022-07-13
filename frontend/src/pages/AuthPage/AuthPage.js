@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
 import "./AuthPage.css";
+import {observer} from "mobx-react-lite"
+import authUser from "../../store/authUser";
 
-const AuthPage = (isAuthenticated) => {
-    const auth = useContext(AuthContext);
+const AuthPage = () => {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -28,17 +28,12 @@ const AuthPage = (isAuthenticated) => {
                 body: JSON.stringify({...form}),
                 method: "POST"}).then(response=>{
                     return response.json();
-                }).then(final=>{
-                    console.log("AGA? = ", final)
-                    //localStorage.setItem("userData", JSON.stringify({userId: final.userId, token: final.token}))
-                    auth.login(final.token, final.userId)
+                }).then(userData=>{
+                    console.log("userData", userData)
+                    authUser.login(userData.token, userData.userId, userData.nickname, userData.roleId)
                     navigate("..", { replace: true })
                 })
-            //console.log("DATA HERE?? = ", JSON.stringify(final))
-            
-            //
-            
-            //
+                console.log("DATA HERE", data);
         } catch (e) {
             console.log(e)
         }
@@ -63,7 +58,7 @@ const AuthPage = (isAuthenticated) => {
         <div className="AuthPage">
            <div className="authForm">
                <h1>Log in to your account</h1>
-               <div className="fields">
+               <div className="auth-fields">
                     <input className="nickname-field" name="nickname" placeholder="Nickname" onChange={changeHandler} />
                     <input className="email-field" name="email" placeholder="Email" onChange={changeHandler} />
                     <input className="wallet-field" name="wallet" placeholder="Wallet" onChange={changeHandler} />
@@ -78,4 +73,4 @@ const AuthPage = (isAuthenticated) => {
     )
 }
 
-export default AuthPage
+export default observer (AuthPage)

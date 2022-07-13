@@ -1,34 +1,55 @@
 .MainBanner {
+    position: relative;
     display: flex;
     height: 500px;
-    width: 85%;
+    width: 1200px;
     box-sizing: border-box;
     justify-content: space-around;
     align-items: center;
+    background-color: #323232;
+    border-radius: 16px;
+    overflow: hidden;
 }
 
 .leftSide {
-    display: flex;
-    /*background-color: #323232;*/
-    height: 100%;
-    width: 320px;
-    border-radius: 16px;
-
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
-    font-size: 36px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.center {
+    position: absolute;
     display: flex;
     background-color: #323232;
     height: 100%;
-    width: 320px;
+    width: 520px;
+    color: #ffffff;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    font-size: 48px;
+    text-transform: uppercase;
+    font-weight: bold;
+    z-index: 1;
+    left: 0;
+    box-sizing: border-box;
+    padding: 36px;
+}
+
+.leftSide .circle {
+    position: absolute;
+    background-color: transparent;
+    width: 500px;
+    height: 500px;
+    z-index: 2;
+    right: -250px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.center {
+    position: absolute;
+    display: flex;
+    background-color: #323232;
+    height: 100%;
+    width: 1000px;
     border-radius: 16px;
     overflow: hidden;
+    right: 0;
 }
 
 .rightSide {

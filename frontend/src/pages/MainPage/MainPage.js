@@ -11,6 +11,11 @@ const MainPage = () => {
     return (
         <div className="MainPage">
            <MainBanner/>
+           <div className="hold hd1"></div>
+           <div className="hold hd2"></div>
+           <div className="hold hd3"></div>
+           <div className="hold hd4"></div>
+           <div className="hold hd5"></div>
         </div>
     )
 }

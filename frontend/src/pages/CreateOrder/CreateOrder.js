@@ -39,7 +39,7 @@ const CreateOrder = (isAuthenticated) => {
                <h1>Create new order</h1>
                <div className="fields">
                     <input className="title-field" name="title" placeholder="Title" onChange={changeHandler} />
-                    <input className="description-field" name="description" placeholder="Description" onChange={changeHandler} />
+                    <textarea className="description-field" name="description" placeholder="Description" onChange={changeHandler} />
                     <input className="price-field" name="price" placeholder="Price" onChange={changeHandler} />
                </div>
                <div className="btn-group">

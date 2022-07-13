@@ -1,0 +1,10 @@
+.MyOrdersPage {
+    display: flex;
+    flex: 1 1 auto;
+    width: 70%;
+    justify-content: center;
+    min-height: 100%;
+    margin-top: 20px;
+    margin-left: 20%;
+    margin-right: 20%;
+}

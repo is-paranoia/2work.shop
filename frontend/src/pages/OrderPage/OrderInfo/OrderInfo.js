@@ -26,6 +26,9 @@ const OrderInfo = ({orderData}) => {
         
         if (response.ok) {
             let data = await response.json()
+            let data_time = new Date(Date.parse(data.createdAt))
+            let orderCreatedAt = `${data_time.getHours()}:${data_time.getMinutes()} ${("0"+data_time.getDate()).slice(-2)}.${("0"+data_time.getMonth()).slice(-2)}.${data_time.getFullYear()}`
+            data.createdAt = orderCreatedAt
             console.log(data)
             setOrder(data)
         } else {
@@ -35,14 +38,13 @@ const OrderInfo = ({orderData}) => {
 
     return (
         <div className="OrderInfo">
-            <div>{order.id}</div>
-            <div>{order.title}</div>
-            <div>{order.description}</div>
-            <div>{order.price}</div>
-            <div>{order.stage}</div>
-            <div>{order.workerId}</div>
-            <div>{order.authorId}</div>
-            <div>{order.createdAt}</div>
+            <div className="order-id">Order ID: #{order.id}</div>
+            <div className="order-title">{order.title}</div>
+            <div className="order-description">{order.description}</div>
+            <div className="order-price">{order.price}</div>
+            <div className="order-worker">{order.workerId}</div>
+            <div className="order-author">{order.authorId}</div>
+            <div className="order-time">{order.createdAt}</div>
         </div>
     )
 }
