@@ -84,6 +84,7 @@ const OrderActivity = () => {
                 body: JSON.stringify({orderId: order.id, userId: event.target.id}),
                 method: "DELETE"})
             console.log("Data", data)
+            navigate("..", { replace: true })
         } catch (e) {
             console.log(e)
         }
@@ -112,21 +113,21 @@ const OrderActivity = () => {
     return (
         <div className="OrderActivity">
             <div className="activityBarHeader"><h2>Activities</h2></div>
-            <div className="respondsList">
+            { order.workerId == null ? <div className="respondsList">
             {responds.map((respond) => {
                 return <div className="respond" key={respond.id}>
                     <div>{respond.userId}</div>
-                    { order.authorId === user.userId ? <button className="buttonSubmitRespond" value={respond.userId} onClick={(event)=>{submitRespondHandler(event.target.value)}}>Respond</button> :
-                    <button className="buttonDeleteRespond" id={respond.userId} onClick={deleteRespondHandler} disabled={respond.userId === user.userId || user.roleId == 2 ? false : true}>Delete</button>}
+                    { order.authorId === user.userId ? <button className="buttonSubmitRespond" value={respond.userId} onClick={(event)=>{submitRespondHandler(event.target.value)}}>Submit</button> :
+                    <button className="buttonDeleteRespond" id={respond.userId} onClick={deleteRespondHandler} disabled={respond.userId === user.userId || user.roleId == 2 ? false : true}>Delete respond</button>}
                     </div>
             })}
-            </div>
+            </div> : <div className="respondsList"></div>}
             <div className="activityButtonGroup">
-            { order.authorId !== user.userId ? <button className="buttonRespond" onClick={respondHandler}>Respond</button> :
-            <button className="buttonDelete" onClick={deleteHandler} disabled={order.authorId === user.userId ? false : true}>Delete</button>}
+            { order.authorId !== user.userId && order.workerId == null ? <button className="buttonRespond" onClick={respondHandler}>Respond</button> : order.authorId == user.userId && order.workerId == null ?
+            <button className="buttonDelete" onClick={deleteHandler} disabled={order.workerId !== null ? true : false}>Delete order</button> : <button className="buttonDelete" onClick={deleteHandler} disabled={order.workerId !== null ? true : false}>Thank you!</button>}
             </div>
         </div>
     )
 }
 
-export default OrderActivity
+export default observer(OrderActivity)

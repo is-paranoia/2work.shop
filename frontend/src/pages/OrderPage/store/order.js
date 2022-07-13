@@ -32,6 +32,7 @@ class Order {
             if (response.ok) {
                 let data = await response.json()
                 runInAction(() => {
+                    console.log(data);
                     this.id = data.id
                     this.title = data.title
                     this.description = data.description
@@ -43,6 +44,8 @@ class Order {
                     let formatedCreatedAt = `${data_time.getHours()}:${data_time.getMinutes()} ${("0"+data_time.getDate()).slice(-2)}.${("0"+data_time.getMonth()).slice(-2)}.${data_time.getFullYear()}`
                     this.createdAt = formatedCreatedAt
                     this.endedAt = data.endedAt
+                    this.authorNickname = null
+                    this.workerNickname = null
 
                     this.getUserNickname(data.authorId).then((nickname) => {
                         runInAction(() => {
@@ -64,6 +67,7 @@ class Order {
 
     setWorker(userId) {
         this.workerId = userId
+        this.getOrder(this.id)
     }
 
     async getUserNickname(userId) {

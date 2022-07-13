@@ -6,10 +6,10 @@ import OrderActivity from "./OrderActivity/OrderActivity";
 import WebSocketChat from "../../components/WebSocketChat/WebSocketChat";
 import io from "socket.io-client";
 import OrderComments from "./OrderComments/OrderComments";
+import EtherCard from "./EtherCard/EtherCard";
 import {observer} from "mobx-react-lite"
 import order from "./store/order";
 import authUser from "../../store/authUser";
-
 
 const PORT = 8000
 const socket = io.connect(`http://localhost:${PORT}`) //change this to website url!!!
@@ -29,6 +29,7 @@ const OrderPage = () => {
             <div className="mainOrderContent">
 
                 <OrderInfo />
+                <EtherCard />
                 <OrderComments />
             </div>
             { authUser.isAuthenticated ?
