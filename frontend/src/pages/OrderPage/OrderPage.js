@@ -34,7 +34,8 @@ const OrderPage = () => {
             { authUser.isAuthenticated ?
             <div className="sideBar">
                 <OrderActivity />
-                 <WebSocketChat socket={socket} chatId={params.id}/> 
+                {authUser.userId == order.authorId || authUser.userId == order.workerId || authUser.roleId == 2 ?
+                 <WebSocketChat socket={socket} chatId={params.id}/> : null}
                 
             </div>
             : null}
