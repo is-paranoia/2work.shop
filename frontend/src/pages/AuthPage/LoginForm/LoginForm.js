@@ -34,7 +34,6 @@ const LoginForm = ({setShowRegister}) => {
                         console.log(userData.message);
                     }
                 })
-                console.log("DATA HERE", data);
         } catch (e) {
             console.log(e)
         }
