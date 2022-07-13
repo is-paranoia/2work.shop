@@ -27,8 +27,12 @@ const LoginForm = ({setShowRegister}) => {
                 method: "POST"}).then(response=>{
                     return response.json();
                 }).then(userData=>{
-                    authUser.login(userData.token, userData.userId, userData.nickname, userData.roleId)
-                    navigate("..", { replace: true })
+                    if (userData.token != undefined) {
+                        authUser.login(userData.token, userData.userId, userData.nickname, userData.roleId)
+                        navigate("..", { replace: true })
+                    } else { 
+                        console.log(userData.message);
+                    }
                 })
                 console.log("DATA HERE", data);
         } catch (e) {

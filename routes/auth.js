@@ -15,7 +15,6 @@ router.post(
     ],
     async (req, res) => {
         console.log("post on register")
-        console.log(req.body)
     try {
         const errors = validationResult(req)
         if (!errors.isEmpty()){
@@ -61,11 +60,10 @@ router.post(
             })
         }
         
-        const {nickname, email, wallet, password} = req.body
+        const {email, password} = req.body
 
         const user = await knex('Users').where("email", email).first()
-
-        if (!user) {
+        if (user == undefined) {
             return res.status(400).json({
                 message: 'User doesnt exist'
             })
