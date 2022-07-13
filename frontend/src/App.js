@@ -44,7 +44,6 @@ const App = () => {
 
   return (
     <Router>
-      <Test />
             <div style={{position: "absolute", right: 0, bottom: 0}}>
                 { isRetina ? "Retina ":"No retina "}
                 { isDesktop ? "Desktop ":"No desktop "}
