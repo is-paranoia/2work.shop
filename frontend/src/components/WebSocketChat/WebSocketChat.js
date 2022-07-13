@@ -66,6 +66,7 @@ const WebSocketChat = ({socket, chatId}) => {
 
    
     const sendMessage = async () => {
+        const user = JSON.parse(localStorage.getItem("userData"))
         if (currentMessage !== "") {
             const message = {
                 chatId: chatId,
