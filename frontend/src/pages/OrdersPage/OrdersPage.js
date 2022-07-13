@@ -20,12 +20,10 @@ const OrdersPage = () => {
         try {
             if (currentFilter != null) {
                 const user = JSON.parse(localStorage.getItem("userData"))
-                console.log("UserAAAA", { token : user.token, userId: user.userId })
                 let response = await fetch(`/api/orders/tag_id/${currentFilter}`, {
                     headers: {
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + user.token,
+                        'Content-Type': 'application/json'
                       }
                 })
                 if (response.ok) {
@@ -36,12 +34,10 @@ const OrdersPage = () => {
                 }
             } else {
                 const user = JSON.parse(localStorage.getItem("userData"))
-                console.log("User", { token : user.token, userId: user.userId })
                 let response = await fetch('/api/orders', {
                     headers: {
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + user.token,
+                        'Content-Type': 'application/json'
                       }
                 })
                 if (response.ok) {

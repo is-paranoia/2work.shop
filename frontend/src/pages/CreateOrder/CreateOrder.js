@@ -19,7 +19,7 @@ const CreateOrder = (isAuthenticated) => {
     const createHandler = async () => {
         try {
             const user = JSON.parse(localStorage.getItem("userData"))
-            const data = await fetch('/api/create_order', {
+            const data = await fetch('/api/orders', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

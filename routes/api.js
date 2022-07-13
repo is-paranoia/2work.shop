@@ -8,12 +8,14 @@ const knex = require('../knex/knex')
 const auth = require("../middleware/auth.middleware")
 
 
+
     router.get(
-        '/users',
+        '/users/:id',
         (req, res) => {
             try {
-                knex.raw('select * from "Users"').then((users) =>{
-                    res.send(users.rows)
+                let query = knex("Users").select("nickname").where("id", req.params.id).first()
+                query.then(response => {
+                    res.send(response)
                 })
             } catch (e) {
                 res.status(500).json({
@@ -157,10 +159,9 @@ const auth = require("../middleware/auth.middleware")
     )
     
     router.get(
-        '/orders', auth,
+        '/orders',
         (req, res) => {
             try {
-                console.log("GET orders by user id", req.user)
                 knex.raw('select * from "Orders"').then((orders) =>{
                     res.send(orders.rows)
                 }).catch(err => console.log('Transaction', err))
@@ -174,9 +175,9 @@ const auth = require("../middleware/auth.middleware")
     )
 
     router.post(
-        '/create_order', auth,
+        '/orders', auth,
         async (req, res) => {
-            console.log("post on create_order")
+            console.log("post on orders")
             console.log(req.body)
             try {
                 const {title, description, price} = req.body
@@ -226,6 +227,27 @@ const auth = require("../middleware/auth.middleware")
         }
     )
 
+    router.put(
+        '/orders/:id', auth,
+        async (req, res) => {
+            console.log("put on orders")
+            console.log(req.body)
+            try {
+                const {workerId} = req.body
+                const order_dct = { workerId: workerId }
+                console.log(order_dct)
+                const order = await knex('Orders').update(order_dct).where("id", req.params.id).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "Order has been updated"})
+        
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:put:orders}",
+                    error: e.message
+                })
+            }
+        }
+    )
+
     router.get(
         '/comments/:order_id',
         (req, res) => {
@@ -265,7 +287,7 @@ const auth = require("../middleware/auth.middleware")
     router.get(
         '/tags',
         async (req, res) => {
-            console.log("post on tags")
+            console.log("get on tags")
             try {
                 knex.raw(`SELECT * FROM "Tags"`).then((tags) =>{
                     res.send(tags.rows)
@@ -357,7 +379,7 @@ const auth = require("../middleware/auth.middleware")
             try {
                 const respond_dct = { orderId: req.params.id, userId: req.user.userId}
                 const added_respond = await knex('Responds').insert(respond_dct).catch(err => console.log('Transaction', err))
-                res.status(201).json({message: "ChatMessage has been created"})
+                res.status(201).json({message: "Respond has been created"})
             } catch (e) {
                 res.status(500).json({
                     message: "Server error {api:post:responds}",
@@ -367,21 +389,24 @@ const auth = require("../middleware/auth.middleware")
         }
     )
 
-    router.put(
-        '/orders/:id', auth,
+    router.delete(
+        '/responds/:id', auth,
         async (req, res) => {
-            console.log("put on orders")
-            console.log(req.body)
+            console.log("delete on responds")
             try {
-                const {workerId} = req.body
-                const order_dct = { workerId: workerId }
-                console.log(order_dct)
-                const order = await knex('Orders').update(order_dct).where("id", req.params.id).catch(err => console.log('Transaction', err))
-                res.status(201).json({message: "Order has been updated"})
-        
+                console.log(req.user.roleId);
+                if (req.user.userId == req.body.userId || req.user.roleId == 2){
+                    console.log(req.params.id, req.body.userId);
+                    const delete_respond = await knex('Responds').del().where('orderId', req.params.id).where('userId', req.body.userId).catch(err => console.log('Transaction', err))
+                    res.status(201).json({message: "Respond has been deleted"})
+                } else {
+                    res.status(400).json({
+                        message: "Restricted"
+                    })
+                }
             } catch (e) {
                 res.status(500).json({
-                    message: "Server error {api:put:orders}",
+                    message: "Server error {api:post:responds}",
                     error: e.message
                 })
             }

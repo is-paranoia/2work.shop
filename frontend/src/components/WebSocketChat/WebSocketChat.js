@@ -102,7 +102,7 @@ const WebSocketChat = ({socket, chatId}) => {
             </div>
             <div className="chatBody">
                 {history.map((messageData)=> {
-                    return <div className="message" id={user.userId === messageData.userId ? "me" : "friend"}>{messageData.message}</div>
+                    return <div className="message" key={messageData.id} id={user.userId === messageData.userId ? "me" : "friend"}>{messageData.message}</div>
                 })}
             </div>
             <div className="chatInputs">

@@ -1,8 +1,10 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import "./OrderActivity.css";
+import {observer} from "mobx-react-lite"
+import order from "../store/order";
 
-const OrderActivity = ({orderData}) => {
+const OrderActivity = () => {
 
     const user = JSON.parse(localStorage.getItem("userData"))
     const params = useParams()
@@ -43,7 +45,7 @@ const OrderActivity = ({orderData}) => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + user.token,
                   },
-                body: {},
+                body: JSON.stringify({}),
                 method: "POST"})
             console.log("Data", data)
         } catch (e) {
@@ -62,13 +64,14 @@ const OrderActivity = ({orderData}) => {
                   },
                 body: JSON.stringify({workerId: userId}),
                 method: "PUT"})
+            order.setWorker(userId)
             console.log("Data", data)
         } catch (e) {
             console.log(e)
         }
     }
 
-    const deleteHandler = async () => {
+    const deleteHandler = async (event) => {
         try {
             const user = JSON.parse(localStorage.getItem("userData"))
             console.log(params.id);
@@ -78,8 +81,27 @@ const OrderActivity = ({orderData}) => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + user.token,
                   },
-                body: JSON.stringify({orderId: orderData.orderId}),
+                body: JSON.stringify({orderId: order.id, userId: event.target.id}),
                 method: "DELETE"})
+            console.log("Data", data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const deleteRespondHandler = async (event) => {
+        try {
+            const user = JSON.parse(localStorage.getItem("userData"))
+            console.log(params.id);
+            const data = await fetch(`/api/responds/${params.id}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.token,
+                  },
+                body: JSON.stringify({orderId: order.id, userId: event.target.id}),
+                method: "DELETE"
+            })
             console.log("Data", data)
         } catch (e) {
             console.log(e)
@@ -92,16 +114,16 @@ const OrderActivity = ({orderData}) => {
             <div className="activityBarHeader"><h2>Activities</h2></div>
             <div className="respondsList">
             {responds.map((respond) => {
-                return <div className="respond">
+                return <div className="respond" key={respond.id}>
                     <div>{respond.userId}</div>
-                    { orderData.authorId === user.userId ? <button className="buttonSubmitRespond" value={respond.userId} onClick={(event)=>{submitRespondHandler(event.target.value)}}>Respond</button> :
-                    <button className="buttonDeleteRespond" disabled={respond.userId === user.userId ? false : true}>Delete</button>}
+                    { order.authorId === user.userId ? <button className="buttonSubmitRespond" value={respond.userId} onClick={(event)=>{submitRespondHandler(event.target.value)}}>Respond</button> :
+                    <button className="buttonDeleteRespond" id={respond.userId} onClick={deleteRespondHandler} disabled={respond.userId === user.userId || user.roleId == 2 ? false : true}>Delete</button>}
                     </div>
             })}
             </div>
             <div className="activityButtonGroup">
-            { orderData.authorId !== user.userId ? <button className="buttonRespond" onClick={respondHandler}>Respond</button> :
-            <button className="buttonDelete" onClick={deleteHandler} disabled={orderData.authorId === user.userId ? false : true}>Delete</button>}
+            { order.authorId !== user.userId ? <button className="buttonRespond" onClick={respondHandler}>Respond</button> :
+            <button className="buttonDelete" onClick={deleteHandler} disabled={order.authorId === user.userId ? false : true}>Delete</button>}
             </div>
         </div>
     )
