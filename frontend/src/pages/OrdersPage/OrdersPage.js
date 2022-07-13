@@ -1,10 +1,8 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
-import OrderCard from "./components/OrderCard/OrderCard";
 import OrdersList from "./OrdersList/OrdersList";
 import Filters from "./Filters/Filters";
 import "./OrdersPage.css";
-import { AuthContext } from "../../context/AuthContext";
 
 const OrdersPage = () => {
 
@@ -22,7 +20,7 @@ const OrdersPage = () => {
         try {
             if (currentFilter != null) {
                 const user = JSON.parse(localStorage.getItem("userData"))
-                console.log("User", { token : user.token, userId: user.userId })
+                console.log("UserAAAA", { token : user.token, userId: user.userId })
                 let response = await fetch(`/api/orders/tag_id/${currentFilter}`, {
                     headers: {
                         'Accept': 'application/json',

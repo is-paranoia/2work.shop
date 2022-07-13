@@ -12,3 +12,8 @@
     text-decoration: none;
     color: inherit;
 }
+
+.logoutBtn {
+    height: 30px;
+    width: 30px;
+}

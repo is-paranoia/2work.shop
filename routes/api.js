@@ -160,7 +160,7 @@ const auth = require("../middleware/auth.middleware")
         '/orders', auth,
         (req, res) => {
             try {
-                console.log("GET orders by user id", req.user.userId)
+                console.log("GET orders by user id", req.user)
                 knex.raw('select * from "Orders"').then((orders) =>{
                     res.send(orders.rows)
                 }).catch(err => console.log('Transaction', err))

@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import "./MyOrdersPage.css";
-import { AuthContext } from "../../context/AuthContext";
 import OrdersList from "../OrdersPage/OrdersList/OrdersList";
 import Filters from "../OrdersPage/Filters/Filters";
 

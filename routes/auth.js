@@ -67,7 +67,7 @@ router.post(
 
         if (!user) {
             return res.status(400).json({
-                message: 'User doesnt exists'
+                message: 'User doesnt exist'
             })
         }
 
@@ -80,13 +80,10 @@ router.post(
         const token = jwt.sign(
             {userId: user.id},
             config.get('jwtSecret'),
-            //{expiresIn: '1h'}
-            {}
-            
+            {expiresIn: '24h'}
         )
         console.log("jwt = ", token)
-
-        res.json({token: token, userId: user.id})
+        res.json({token: token, userId: user.id, nickname: user.nickname, roleId: user.roleId})
 
     } catch (e) {
         res.status(500).json({

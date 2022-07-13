@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import "./OrderPage.css";
-import { AuthContext } from "../../context/AuthContext";
 import OrderInfo from "./OrderInfo/OrderInfo";
 import OrderActivity from "./OrderActivity/OrderActivity";
 import WebSocketChat from "../../components/WebSocketChat/WebSocketChat";
