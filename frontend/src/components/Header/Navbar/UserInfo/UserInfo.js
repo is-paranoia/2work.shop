@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
-import { AuthContext } from "../../../../context/AuthContext";
 import "./UserInfo.css"
+import {observer} from "mobx-react-lite"
+import authUser from "../../../../store/authUser";
 
 const UserInfo = () => {
-
-    const auth = useContext(AuthContext);
     let [user, setUser] = useState([])
 
     useEffect(() => {
@@ -13,9 +12,9 @@ const UserInfo = () => {
     }, [])
 
     let getUser = async () => {
-        const userLocal = JSON.parse(localStorage.getItem("userData"))
-        console.log("Local user", userLocal)
-        if (userLocal !== null) {
+        const user = JSON.parse(localStorage.getItem("userData"))
+        console.log("Local user", user)
+        if (user !== null) {
             console.log("UserToken", user.token)
             let response = await fetch('/api/user', {
                 headers: {
@@ -26,10 +25,10 @@ const UserInfo = () => {
             })
             if (response.ok) {
                 let data = await response.json()
-                console.log(data)
+                console.log("UserInfo", data)
                 setUser(data)
             } else {
-                auth.logout()
+                authUser.logout()
                 console.log('Error')
             }
         } else {
@@ -37,11 +36,15 @@ const UserInfo = () => {
         }
     }
 
+    const logoutHandler = () => {
+        authUser.logout()
+    }
+
     return (
         <div className="UserInfo">
-                {(user !== null)? user.nickname  : <Link className="linkLogin" to={"/auth/login"}>Login</Link>}
+                {(authUser.token !== null)? <div>{authUser.nickname} <Link className="" to={"/auth/login"}>Logout</Link></div> : <Link className="linkLogin" to={"/auth/login"}>Login</Link>}
         </div>
     )
 }
 
-export default UserInfo
+export default observer(UserInfo)

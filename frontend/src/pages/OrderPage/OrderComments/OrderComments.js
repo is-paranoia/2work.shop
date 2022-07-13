@@ -17,6 +17,8 @@ const OrderComments = ({order}) => {
     }, [])
 
     const getComments = async () => {
+        const user = JSON.parse(localStorage.getItem("userData"))
+        console.log("ADMIN", user.roleId);
         try{
             const user = JSON.parse(localStorage.getItem("userData"))
             const response = await fetch(`/api/comments/${params.id}`, {
@@ -66,6 +68,14 @@ const OrderComments = ({order}) => {
         }
     }
 
+    const deleteCommentHandler = async () => {
+        try {
+            
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     
 
     return (
@@ -77,6 +87,7 @@ const OrderComments = ({order}) => {
                     <div>{comment.userId}</div>
                     <div>{comment.message}</div>
                     <div>{comment.createdAt}</div>
+                    { user.roleId == 2 ? <button className="button-27" onClick={deleteCommentHandler}>adminDelete</button> : <div></div>}
                 </div>
             })}
             </div>

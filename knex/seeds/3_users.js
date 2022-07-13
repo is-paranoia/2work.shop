@@ -16,7 +16,8 @@ exports.seed = function(knex, Promise) {
                 nickname: "admin12345",
                 email: "admin12345@gmail.com",
                 wallet: "admin12345",
-                password: "$2b$12$0MenNxL7AEGHDfdWw9b/ouKcsPSHDxNbahN61/1KL.ktTu5xMxRou"
+                password: "$2b$12$0MenNxL7AEGHDfdWw9b/ouKcsPSHDxNbahN61/1KL.ktTu5xMxRou",
+                roleId: 2
             },
             {
                 id: 3,

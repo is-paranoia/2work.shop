@@ -68,6 +68,23 @@ const OrderActivity = ({orderData}) => {
         }
     }
 
+    const deleteHandler = async () => {
+        try {
+            const user = JSON.parse(localStorage.getItem("userData"))
+            console.log(params.id);
+            const data = await fetch(`/api/orders/${params.id}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.token,
+                  },
+                body: JSON.stringify({orderId: orderData.orderId}),
+                method: "DELETE"})
+            console.log("Data", data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
     
 
     return (
@@ -84,7 +101,7 @@ const OrderActivity = ({orderData}) => {
             </div>
             <div className="activityButtonGroup">
             { orderData.authorId !== user.userId ? <button className="buttonRespond" onClick={respondHandler}>Respond</button> :
-            <button className="buttonDelete" disabled={orderData.authorId === user.userId ? false : true}>Delete</button>}
+            <button className="buttonDelete" onClick={deleteHandler} disabled={orderData.authorId === user.userId ? false : true}>Delete</button>}
             </div>
         </div>
     )
