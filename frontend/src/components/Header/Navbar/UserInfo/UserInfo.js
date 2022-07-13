@@ -42,7 +42,7 @@ const UserInfo = () => {
 
     return (
         <div className="UserInfo">
-                {(authUser.token !== null)? <div>{authUser.nickname} <button className="logoutBtn" onClick={logoutHandler}>X</button></div> : <Link className="linkLogin" to={"/auth/login"}>Login</Link>}
+                {(authUser.token !== null)? <div>{authUser.nickname} <Link className="" to={"/auth/login"}>Logout</Link></div> : <Link className="linkLogin" to={"/auth/login"}>Login</Link>}
         </div>
     )
 }
