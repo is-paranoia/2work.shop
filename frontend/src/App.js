@@ -12,18 +12,14 @@ import React, {Fragment, useEffect, useState} from "react";
 import MainPage from "./pages/MainPage/MainPage";
 import OrdersPage from "./pages/OrdersPage/OrdersPage";
 import Footer from "./components/Footer/Footer";
-import { useAuth } from "./hooks/auth.hook";
-import { AuthContext } from "./context/AuthContext";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import CreateOrder from "./pages/CreateOrder/CreateOrder";
 import OrderPage from "./pages/OrderPage/OrderPage";
 import MyOrdersPage from "./pages/MyOrdersPage/MyOrdersPage";
 
-function App() {
-  //const [loading, setLoading] = useState(true)
 
-  const { token, userId, login, logout, } = useAuth()
-  const isAuthenticated = !!token
+
+const App = () => {
   useEffect(() =>{
   }, [])
   const isDesktop = useMediaQuery({
@@ -47,9 +43,6 @@ function App() {
     });
 
   return (
-    <AuthContext.Provider value={{
-      token: token, login: login, logout: logout, userId: userId, isAuthenticated: isAuthenticated
-    }}>
     <Router>
             <div style={{position: "absolute", right: 0, bottom: 0}}>
                 { isRetina ? "Retina ":"No retina "}
@@ -76,7 +69,6 @@ function App() {
             <Footer/>
             
     </Router>
-    </AuthContext.Provider>
   );
 }
 
