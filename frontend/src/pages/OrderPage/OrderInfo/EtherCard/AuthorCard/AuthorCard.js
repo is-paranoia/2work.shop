@@ -156,13 +156,15 @@ const AuthorCard = ({orderData, status}) => {
     return (
         <div className="AuthorCard">
             <div><h2>Author</h2></div>
-            { wallet == "" ? <button className="walletAuthorConnectButton" onClick={connectWalletHandler}>
+            { wallet == "" & status == "Wait author payment" ? <button className="walletAuthorConnectButton" onClick={connectWalletHandler}>
                 {buttonText}
             </button> : <div></div>}
             
             
             { status == "Wait author payment" ? <button className="sendEthAuthorButton" onClick={sendEthHandler}>
                 Send payment
+            </button> : status == "Ended" ? <button className="sendEthAuthorButton">
+                Thank you!
             </button> : <button className="sendEthAuthorButton" disabled={true} onClick={sendEthHandler}>
                 Wait worker
             </button>}

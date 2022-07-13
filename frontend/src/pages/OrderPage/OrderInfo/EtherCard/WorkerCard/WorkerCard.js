@@ -156,13 +156,15 @@ const WorkerCard = ({orderData, status}) => {
     return (
         <div className="WorkerCard">
             <div><h2>Worker</h2></div>
-            { wallet == "" ? <button className="walletWorkerConnectButton" onClick={connectWalletHandler}>
+            { wallet == "" && status == "Wait worker receive" ? <button className="walletWorkerConnectButton" onClick={connectWalletHandler}>
                 {buttonText}
             </button> : <div></div>}
             
             
             { status == "Wait worker receive" ? <button className="sendEthWorkerButton" onClick={sendEthHandler}>
                 Receive payment
+            </button> : status == "Ended" ? <button className="sendEthWorkerButton">
+                Thank you!
             </button> : <button className="sendEthWorkerButton" disabled={true} onClick={sendEthHandler}>
                 Wait author
             </button>}

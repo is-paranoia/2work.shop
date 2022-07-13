@@ -5,6 +5,7 @@ import "./OrderInfo.css";
 
 const OrderInfo = ({orderData}) => {
 
+    const user = JSON.parse(localStorage.getItem("userData"))
     const params = useParams()
     let navigate = useNavigate();
     let [order, setOrder] = useState([])
@@ -46,7 +47,8 @@ const OrderInfo = ({orderData}) => {
             <div className="order-worker">{order.workerId}</div>
             <div className="order-author">{order.authorId}</div>
             <div className="order-time">{order.createdAt}</div>
-            <EtherCard order={order}/>
+            { order.workerId == user.userId || order.authorId == user.userId ?
+                <EtherCard order={order}/> : <div></div>}
         </div>
     )
 }

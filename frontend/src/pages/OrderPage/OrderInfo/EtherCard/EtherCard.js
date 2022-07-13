@@ -73,21 +73,22 @@ const EtherCard = ({order}) => {
 
     return (
         <div className="EtherCard">
-            <AuthorCard orderData={order} status={status}/>
-            <div className="txList">
-                <div>{status}</div>
-            {payments.map((payment) => {
-                return <div className="payment" key={payment.id}>
-                    <div>{payment.txHash}</div>
-                    <div>{payment.userId}</div>
-                    <div>{payment.status}</div>
-                    <div>{payment.value}</div>
-                    <div>{payment.comment}</div>
-                    <div>{payment.timestamp}</div>
+                { user.userId == order.authorId ? <AuthorCard orderData={order} status={status}/> : <div></div>}
+                <div className="txList">
+                    <div>{status}</div>
+                    {payments.map((payment) => {
+                        return <div className="payment" key={payment.id}>
+                            <div>{payment.txHash}</div>
+                            <div>{payment.userId}</div>
+                            <div>{payment.status}</div>
+                            <div>{payment.value}</div>
+                            <div>{payment.comment}</div>
+                            <div>{payment.timestamp}</div>
+                        </div>
+                    })}
                 </div>
-            })}
-            </div>
-            <WorkerCard orderData={order} status={status}/>
+                { user.userId == order.workerId ? <WorkerCard orderData={order} status={status}/> : <div></div>}
+                
         </div>
     )
 }

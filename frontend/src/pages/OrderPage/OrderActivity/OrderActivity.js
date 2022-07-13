@@ -43,7 +43,7 @@ const OrderActivity = ({orderData}) => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + user.token,
                   },
-                body: {},
+                body: JSON.stringify({}),
                 method: "POST"})
             console.log("Data", data)
         } catch (e) {
