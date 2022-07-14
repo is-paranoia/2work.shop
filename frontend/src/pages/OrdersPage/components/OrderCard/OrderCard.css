@@ -4,7 +4,7 @@
     flex-direction: column;
     box-sizing: border-box;
     overflow-wrap: break-word;
-    margin: 10px 0 0 0;
+    margin: 12px 0 0 0;
     padding: 12px;
     /*border-top: 1px solid rgba(0, 0, 0, 0.3);*/
     width: 600px;
@@ -23,7 +23,7 @@
     margin-top: 4px;
     right: 12px;
     z-index: 5;
-    color: #323232;
+    color: #ffffff;
 }
 
 .card-title {

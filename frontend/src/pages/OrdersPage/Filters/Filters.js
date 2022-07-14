@@ -50,7 +50,7 @@ const Filters = ({setCurrentFilter}) => {
             </div>
             {filters.map((filter) => {
                 return <div className="filter">
-                <input type={"checkbox"} onChange={checkboxHandler} checked={value == filter.tag ? true : false} id={filter.id} name={filter.tag}/><label>{filter.tag}</label>
+                <input className="checkbox" type={"checkbox"} onChange={checkboxHandler} checked={value == filter.tag ? true : false} id={filter.id} name={filter.tag}/><label>{filter.tag}</label>
             </div>
             })}
         </div>

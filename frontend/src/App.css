@@ -9,7 +9,8 @@ html, body {
     font-family: 'PT Sans', sans-serif;
     margin: 0;
     height: 100%;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: #EDF2F4;
     /*background-color: rgba(42, 157, 143, 0.15);*/
     

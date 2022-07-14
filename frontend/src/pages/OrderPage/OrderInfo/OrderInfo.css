@@ -2,8 +2,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border: 2px solid black;
+    border: 2px solid #323232;
     border-radius: 8px;
     height: 50%;
     width: 100%;
@@ -14,7 +13,7 @@
     padding: 8px;
 }
 
-.order-id {
+.orderCornerHolder {
     position: absolute;
     right: 16px;
     display: flex;
@@ -23,17 +22,123 @@
     color: #495057;
 }
 
+.orderPay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #323232;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-right: 24px;
+    width: 156px;
+    overflow: hidden;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #52b788;
+    box-sizing: border-box;
+    padding: 3px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    width: 64px;
+    height: 100%;
+}
+
+.priceText {
+    display: flex;
+    width: 92px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+}
+
+.orderId {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #323232;
+    background-color: #323232;
+    box-sizing: border-box;
+    padding: 3px;
+    border-radius: 4px;
+    color: #52b788;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+
 .order-title {
     display: flex;
     width: 100%;
     box-sizing: border-box;
-    padding: 16px;
+    padding: 12px;
     padding-right: 48px;
     font-size: 24px;
+    font-weight: 600;
+    max-width: 85%;
 }
 
 .info {
     display: flex;
-    min-height: 100%;
+    flex-direction: column;
+    width: 100%;
     height: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    box-sizing: border-box;
+}
+
+.order-description {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.orderSides {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-left: 12px;
+}
+
+.orderAuthor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #323232;
+    background-color: #323232;
+    box-sizing: border-box;
+    padding: 3px;
+    border-radius: 4px;
+    color: #52b788;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.orderWorker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #323232;
+    background-color: #323232;
+    box-sizing: border-box;
+    padding: 3px;
+    border-radius: 4px;
+    color: #52b788;
+    font-size: 12px;
+    font-weight: 800;
 }

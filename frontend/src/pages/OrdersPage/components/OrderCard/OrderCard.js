@@ -28,7 +28,9 @@ const OrderCard = ({order}) => {
             </div>
             <div className="card-timestamps">
                 <div className="createdAt">
-                    {date.toDateString()}</div>
+                    {date.toDateString()}
+                </div>
+                <div>{order.tagId}</div>
                 <div className="endedAt">{order.endedAt}</div>
             </div>
             </Link>

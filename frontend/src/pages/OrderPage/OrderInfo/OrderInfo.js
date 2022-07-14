@@ -12,13 +12,21 @@ const OrderInfo = () => {
 
     return (
         <div className="OrderInfo">
-            <div className="order-id">Order ID: #{order.id}</div>
+            <div className="orderCornerHolder">
+                <div className="orderPay"><div className="priceText">Price</div> <div className="price">{order.price}</div></div>
+                <div className="orderId">Order ID: #{order.id}</div>
+            </div>
             <div className="order-title">{order.title}</div>
-            <div className="order-description">{order.description}</div>
-            <div className="order-price">{order.price}</div>
-            <div className="order-worker">{order.workerNickname}</div>
-            <div className="order-author">{order.authorNickname}</div>
+            <div className="orderSides">
+                <div className="orderAuthor">{order.authorNickname}</div>
+                {order.workerNickname !== null && order.workerNickname !== undefined ? <div className="orderWorker">{order.workerNickname}</div> : null}
+            </div>
+            <div className="info">
+                <div className="order-description">{order.description}</div>
+                
+            </div>
             <div className="order-time">{order.createdAt}</div>
+            <div className="order-time">{order.endedAt}</div>
         </div>
     )
 }
