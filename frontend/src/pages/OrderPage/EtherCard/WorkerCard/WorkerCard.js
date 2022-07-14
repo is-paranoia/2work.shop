@@ -2,8 +2,10 @@ import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import {ethers} from "ethers"
 import "./WorkerCard.css"
+import {observer} from "mobx-react-lite"
 
-const WorkerCard = ({orderData, status}) => {
+
+const WorkerCard = ({orderData, status, contract}) => {
 
     const user = JSON.parse(localStorage.getItem("userData"))
     const params = useParams()
@@ -23,10 +25,10 @@ const WorkerCard = ({orderData, status}) => {
 
     useEffect(() => {
         
-    }, [status, wallet])
+    }, [status, wallet, contract.contract_address, contract.abi])
 
     const walletSignHandler = async (wallet) => {
-        await window.ethereum.request({method: "personal_sign", params: [wallet, 'Hello']}).then((sign)=>{
+        await window.ethereum.request({method: "personal_sign", params: [wallet, 'Receive payment from 2WORK']}).then((sign)=>{
             console.log(sign)
         })
     }
@@ -74,17 +76,15 @@ const WorkerCard = ({orderData, status}) => {
             status: 0,
             comment: ""
         }
-        const addr = ""
+        const addr = contract.contract_address
         if (wallet !== "") {
             console.log("RECEIVE ETH");
             //await window.ethereum.send("eth_requestAccount")
             const provider = new ethers.providers.Web3Provider(window.ethereum)
             const signer = provider.getSigner()
-            const abi = [
-                "function test(address payable _tester, uint _amount) public"
-            ]
-            const contract = new ethers.Contract(addr, abi, signer);
-            const tx = await contract.test(wallet, 23)
+            const abi = contract.abi
+            const final_contract = new ethers.Contract(addr, abi, signer);
+            const tx = await final_contract.test(wallet, 23)
             sendedTx.txHash = tx.hash
             sendedTx.value = ethers.utils.formatEther(tx.value.toString())
             let receipt = await tx.wait()
@@ -106,6 +106,7 @@ const WorkerCard = ({orderData, status}) => {
                     body: JSON.stringify(sendedTx),
                     method: "POST"
                 })
+                status.getPaymentStatus(params.id)
                 console.log("Payment receive", data)
             } catch (e) {
                 console.log(e)
@@ -150,6 +151,10 @@ const WorkerCard = ({orderData, status}) => {
         })
     }
 
+    const submitHandler = () => {
+        status.workerSubmit()
+    }
+
     if (window.ethereum) {
         window.ethereum.on('accountsChanged', walletChangeHandler)
         window.ethereum.on('chainChanged', chainChangeHandler)
@@ -160,21 +165,24 @@ const WorkerCard = ({orderData, status}) => {
     return (
         <div className="WorkerCard">
             <div><h2>Worker</h2></div>
-            { wallet == "" && status == "Wait worker receive" ? <button className="walletWorkerConnectButton" onClick={connectWalletHandler}>
+            { wallet == "" && status.globalStatus == "Wait worker receive" ? <button className="walletWorkerConnectButton" onClick={connectWalletHandler}>
                 {buttonText}
             </button> : <div></div>}
             
             
-            { status == "Wait worker receive" ? <button className="sendEthWorkerButton" onClick={sendEthHandler}>
+            { status.globalStatus == "Wait worker receive" ? <button className="sendEthWorkerButton" onClick={sendEthHandler}>
                 Receive payment
-            </button> : status == "Ended" ? <button className="sendEthWorkerButton">
+            </button> : status.globalStatus == "Ended" ? <button className="sendEthWorkerButton">
                 Thank you!
             </button> : <button className="sendEthWorkerButton" disabled={true} onClick={sendEthHandler}>
                 Wait author
             </button>}
+            { status.globalStatus == "Wait worker submit" ? <button className="sendEthWorkerButton" onClick={submitHandler}>
+                Complete order
+            </button>: null}
 
         </div>
     )
 }
 
-export default WorkerCard
+export default observer(WorkerCard)

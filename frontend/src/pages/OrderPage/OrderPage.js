@@ -29,13 +29,13 @@ const OrderPage = () => {
             <div className="mainOrderContent">
 
                 <OrderInfo />
-                <EtherCard />
+                { order.workerId !== null && order.workerId !== undefined ? <EtherCard /> : null}
                 <OrderComments />
             </div>
             { authUser.isAuthenticated ?
             <div className="sideBar">
                 <OrderActivity />
-                {authUser.userId == order.authorId || authUser.userId == order.workerId || authUser.roleId == 2 ?
+                {(order.workerId !== null || order.workerId !== undefined) && (authUser.userId == order.authorId || authUser.userId == order.workerId || authUser.roleId == 2) ?
                  <WebSocketChat socket={socket} chatId={params.id}/> : null}
                 
             </div>

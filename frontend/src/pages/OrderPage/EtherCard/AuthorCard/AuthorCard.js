@@ -2,8 +2,10 @@ import React, {useState, useEffect, useContext} from "react";
 import {Link, Navigate, useNavigate, useParams} from "react-router-dom";
 import {ethers} from "ethers"
 import "./AuthorCard.css"
+import {observer} from "mobx-react-lite"
 
-const AuthorCard = ({orderData, status}) => {
+
+const AuthorCard = ({orderData, status, contract}) => {
 
     const user = JSON.parse(localStorage.getItem("userData"))
     const params = useParams()
@@ -23,10 +25,10 @@ const AuthorCard = ({orderData, status}) => {
 
     useEffect(() => {
 
-    }, [status, wallet])
+    }, [status, wallet, contract.contract_address])
 
     const walletSignHandler = async (wallet) => {
-        await window.ethereum.request({method: "personal_sign", params: [wallet, 'Hello']}).then((sign)=>{
+        await window.ethereum.request({method: "personal_sign", params: [wallet, 'Send payment to 2WORK']}).then((sign)=>{
             console.log(sign)
         })
     }
@@ -73,7 +75,7 @@ const AuthorCard = ({orderData, status}) => {
             status: 0,
             comment: ""
         }
-        const addr = ""
+        const addr = contract.contract_address
         if (wallet !== "") {
             if (ethers.utils.parseEther(balance.toString()) > ethers.utils.parseEther(orderData.price.toString())){
                 console.log("SEND ETH");
@@ -107,6 +109,7 @@ const AuthorCard = ({orderData, status}) => {
                     body: JSON.stringify(sendedTx),
                     method: "POST"
                 })
+                status.getPaymentStatus(params.id)
                 console.log("Payment create", data)
             } catch (e) {
                 console.log(e)
@@ -154,6 +157,10 @@ const AuthorCard = ({orderData, status}) => {
         })
     }
 
+    const submitHandler = () => {
+        status.authorSubmit()
+    }
+
     if (window.ethereum) {
         window.ethereum.on('accountsChanged', walletChangeHandler)
         window.ethereum.on('chainChanged', chainChangeHandler)
@@ -164,21 +171,24 @@ const AuthorCard = ({orderData, status}) => {
     return (
         <div className="AuthorCard">
             <div><h2>Author</h2></div>
-            { wallet == "" & status == "Wait author payment" ? <button className="walletAuthorConnectButton" onClick={connectWalletHandler}>
+            { wallet == "" & status.globalStatus == "Wait author payment" ? <button className="walletAuthorConnectButton" onClick={connectWalletHandler}>
                 {buttonText}
             </button> : <div></div>}
             
             
-            { status == "Wait author payment" ? <button className="sendEthAuthorButton" onClick={sendEthHandler}>
+            { status.globalStatus == "Wait author payment" ? <button className="sendEthAuthorButton" onClick={sendEthHandler}>
                 Send payment
-            </button> : status == "Ended" ? <button className="sendEthAuthorButton">
+            </button> : status.globalStatus == "Ended" ? <button className="sendEthAuthorButton">
                 Thank you!
             </button> : <button className="sendEthAuthorButton" disabled={true} onClick={sendEthHandler}>
                 Wait worker
             </button>}
+            { status.globalStatus == "Wait author submit" ? <button className="sendEthWorkerButton" onClick={submitHandler}>
+                Complete order
+            </button>: null}
             
         </div>
     )
 }
 
-export default AuthorCard
+export default observer(AuthorCard)

@@ -65,8 +65,21 @@ class Order {
             }
     }
 
-    setWorker(userId) {
-        this.workerId = userId
+    async setWorker(userId) {
+        try {
+            const user = JSON.parse(localStorage.getItem("userData"))
+            const data = await fetch(`/api/status/${this.id}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + user.token,
+                  },
+                body: JSON.stringify({}),
+                method: "POST"})
+            this.workerId = userId
+        } catch (e) {
+            console.log(e)
+        }
         this.getOrder(this.id)
     }
 

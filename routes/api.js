@@ -449,4 +449,72 @@ const auth = require("../middleware/auth.middleware")
         }
     )
 
+    router.get(
+        '/status/:id', auth,
+        (req, res) => {
+            try {
+                let query = knex("PaymentsStatus").select("*").where("orderId", req.params.id).first()
+                query.then(response => {
+                    res.send(response)
+                })
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
+    router.post(
+        '/status/:id', auth,
+        (req, res) => {
+            try {
+                const status = knex('PaymentsStatus').insert({orderId: req.params.id}).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "Status has been created"})
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error"
+                })
+            }
+        }
+    )
+
+    router.put(
+        '/status/submit/worker/:id', auth,
+        async (req, res) => {
+            console.log("put on status worker")
+            try {
+                const order_dct = { workerStatus: "submit" }
+                console.log(order_dct)
+                const order = await knex('PaymentsStatus').update(order_dct).where("orderId", req.params.id).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "Status has been updated"})
+        
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:put:orders}",
+                    error: e.message
+                })
+            }
+        }
+    )
+
+    router.put(
+        '/status/submit/author/:id', auth,
+        async (req, res) => {
+            console.log("put on status author")
+            try {
+                const order_dct = { authorStatus: "submit" }
+                console.log(order_dct)
+                const order = await knex('PaymentsStatus').update(order_dct).where("orderId", req.params.id).catch(err => console.log('Transaction', err))
+                res.status(201).json({message: "Status has been updated"})
+        
+            } catch (e) {
+                res.status(500).json({
+                    message: "Server error {api:put:orders}",
+                    error: e.message
+                })
+            }
+        }
+    )
+
 module.exports = router
