@@ -82,11 +82,15 @@ const AuthorCard = ({orderData, status, contract}) => {
             //await window.ethereum.send("eth_requestAccount")
             const provider = new ethers.providers.Web3Provider(window.ethereum)
             const signer = provider.getSigner()
+            const abi = contract.abi
+            const final_contract = new ethers.Contract(addr, abi, signer);
+            const tx = await final_contract.receiveAuthorPayment(orderData.id, {value: ethers.utils.parseEther(orderData.price.toString())})
+
             //ethers.utils.getAddress(addr)
-            const tx = await signer.sendTransaction({
-                to: addr,
-                value: ethers.utils.parseEther(orderData.price.toString()),
-            })
+            //const tx = await signer.sendTransaction({
+            //   to: addr,
+            //    value: ethers.utils.parseEther(orderData.price.toString()),
+            //})
             sendedTx.txHash = tx.hash
             sendedTx.value = ethers.utils.formatEther(tx.value.toString())
             console.log("Value ", tx.value.toString());

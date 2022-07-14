@@ -32,12 +32,12 @@ const EtherCard = () => {
                     <div>{status.globalStatus}</div>
                     {status.payments.map((payment) => {
                         return <div className="payment" key={payment.id}>
-                            <div>{payment.txHash}</div>
-                            <div>{payment.userId}</div>
-                            <div>{payment.status}</div>
-                            <div>{payment.value}</div>
-                            <div>{payment.comment}</div>
-                            <div>{payment.timestamp}</div>
+                            <div>Tx: {payment.txHash}</div>
+                            <div>User: {payment.userId}</div>
+                            <div>Status: {payment.status}</div>
+                            <div>Eth spend: {payment.value}</div>
+                            <div>Status: {payment.comment}</div>
+                            <div>Time: {payment.timestamp}</div>
                         </div>
                     })}
                 </div>

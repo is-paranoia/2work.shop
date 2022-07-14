@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import "./MainBanner.css"
-import teamImg from "../../../media/team.jpg"
 
 const MainBanner = () => {
 
@@ -17,7 +16,7 @@ const MainBanner = () => {
                 <div>best clients</div>
             </div>
             <div className="center">
-                <img className="imgTeam" src={teamImg}></img>
+                
             </div>
         </div>
     )

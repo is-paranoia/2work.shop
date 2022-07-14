@@ -84,7 +84,7 @@ const WorkerCard = ({orderData, status, contract}) => {
             const signer = provider.getSigner()
             const abi = contract.abi
             const final_contract = new ethers.Contract(addr, abi, signer);
-            const tx = await final_contract.test(wallet, 23)
+            const tx = await final_contract.sendWorkerPayment(orderData.id)
             sendedTx.txHash = tx.hash
             sendedTx.value = ethers.utils.formatEther(tx.value.toString())
             let receipt = await tx.wait()
