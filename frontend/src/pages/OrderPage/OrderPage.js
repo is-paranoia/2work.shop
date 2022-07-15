@@ -12,7 +12,7 @@ import order from "./store/order";
 import authUser from "../../store/authUser";
 
 const PORT = 8000
-const socket = io.connect(`http://2workshop.site`) //change this to website url!!!
+const socket = io.connect(`http://185.173.38.128:8000/`) //change this to website url!!!
 
 const OrderPage = () => {
 
