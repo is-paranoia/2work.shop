@@ -1,0 +1,92 @@
+.OrdersPage {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 100%;
+    margin-top: 12px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.ordersFunc {
+    display: flex;
+    width: 100%;
+    height: 64px;
+    background-color: #323232;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 8px;
+    justify-content: space-between;
+}
+
+.ordersView {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    margin-top: 12px;
+    box-sizing: border-box;
+}
+
+.searchHolder {
+    display: flex;
+    border-radius: 4px;
+    height: 100%;
+    box-sizing: border-box;
+    width: 648px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search {
+    display: flex;
+    border-radius: 4px;
+    height: 100%;
+    box-sizing: border-box;
+    width: 600px;
+}
+
+.bi-search {
+    margin-right: 12px;
+}
+
+.createOrder {
+    appearance: none;
+    background-color: #52b788;
+    border: 3px solid #52b788;
+    color: #ffffff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    outline: none;
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 176px;
+    height: 100%;
+    will-change: transform;
+    text-transform: uppercase;
+}
+  
+.createOrder:disabled {
+    pointer-events: none;
+    border: 3px solid #323232;
+    color: #323232;
+}
+  
+.createOrder:hover {
+    background-color: #52b788;
+    color: #ffffff;
+    transform: scale(1.01)
+}
+  
+.createOrder:active {
+    box-shadow: none;
+    transform: translateY(0);
+}

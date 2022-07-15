@@ -1,0 +1,45 @@
+.UserInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.linkLogin {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: white;
+
+}
+
+.linkLogin, .linkLogin:hover, .linkLogin:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin-left: 12px;
+    box-sizing: border-box;
+}
+
+.nicknameHolder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.nicknameGroupHolder {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-sizing: border-box;
+}

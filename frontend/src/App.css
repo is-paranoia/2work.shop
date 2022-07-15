@@ -1,0 +1,25 @@
+@import url('http://fonts.cdnfonts.com/css/pt-sans-2');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'PT Sans', sans-serif;
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #EDF2F4;
+    /*background-color: rgba(42, 157, 143, 0.15);*/
+    
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    align-items: center;
+}
+

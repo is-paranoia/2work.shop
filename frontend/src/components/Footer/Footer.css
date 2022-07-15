@@ -1,0 +1,5 @@
+.Footer {
+    flex: 0 0 auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+}
