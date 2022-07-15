@@ -44,15 +44,37 @@
     padding: 2px;
     margin-top: 8px;
     border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.messageBody {
+    display: flex;
+    overflow-wrap: break-word;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    padding: 4px;
+    margin-top: 8px;
+    border-radius: 4px;
     background-color: #d1d1d1;
+    box-sizing: border-box;
+    max-width: 70%;
 }
 
 #friend {
+    justify-content: flex-end;
+}
+
+#me {
+    justify-content: flex-start;
+}
+
+#friend .messageBody {
     background-color: #323232;
     color: #ffffff;
 }
 
-#me {
+#me .messageBody {
     background-color: lightgray;
     color: #323232;
 }

@@ -20,12 +20,10 @@ const OrdersPage = () => {
         try {
             if (currentFilter != null) {
                 const user = JSON.parse(localStorage.getItem("userData"))
-                console.log("UserAAAA", { token : user.token, userId: user.userId })
                 let response = await fetch(`/api/orders/tag_id/${currentFilter}`, {
                     headers: {
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + user.token,
+                        'Content-Type': 'application/json'
                       }
                 })
                 if (response.ok) {
@@ -36,12 +34,10 @@ const OrdersPage = () => {
                 }
             } else {
                 const user = JSON.parse(localStorage.getItem("userData"))
-                console.log("User", { token : user.token, userId: user.userId })
                 let response = await fetch('/api/orders', {
                     headers: {
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + user.token,
+                        'Content-Type': 'application/json'
                       }
                 })
                 if (response.ok) {
@@ -58,8 +54,19 @@ const OrdersPage = () => {
 
     return (
         <div className="OrdersPage">
-            <OrdersList orders={orders}/>
-            <Filters setCurrentFilter={setCurrentFilter}/>
+            <div className="ordersFunc">
+                <div className="searchHolder">
+                    <input className="search"></input>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" className="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </div>
+                <button className="createOrder">Create order</button>
+            </div>
+            <div className="ordersView">
+                <OrdersList orders={orders}/>
+                <Filters setCurrentFilter={setCurrentFilter}/>
+            </div>
         </div>
     )
 }

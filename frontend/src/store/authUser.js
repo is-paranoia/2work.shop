@@ -40,10 +40,6 @@ class AuthUser {
         localStorage.removeItem(this.storageName)
     }
 
-    addUser(userId) {
-        this.userId = userId
-    }
-
 }
 
 export default new AuthUser()

@@ -6,7 +6,7 @@ const Filters = ({setCurrentFilter}) => {
 
     let navigate = useNavigate();
     const [filters, setFilters] = useState([])
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(null);
 
     useEffect(()=>{
         getFilters()
@@ -18,8 +18,7 @@ const Filters = ({setCurrentFilter}) => {
             const response = await fetch(`/api/tags`, {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + user.token,
+                    'Content-Type': 'application/json'
                   },
                 method: "GET"
             })
@@ -37,6 +36,7 @@ const Filters = ({setCurrentFilter}) => {
         setValue(event.target.name)
         if (event.target.name === "null") {
             setCurrentFilter(null)
+            setValue(null)
         } else {
             setCurrentFilter(event.target.id)
         }        
@@ -46,11 +46,11 @@ const Filters = ({setCurrentFilter}) => {
         <div className="Filters">
             <div className="filtersHeader">Filters</div>
             <div className="filter">
-                <input type={"checkbox"} onChange={checkboxHandler} checked={value == "null" ? true : false} id={"null"} name={"null"}/><label>Default</label>
+                <input type={"checkbox"} onChange={checkboxHandler} checked={value == null ? true : false} id={null} name={"null"}/><label>Default</label>
             </div>
             {filters.map((filter) => {
                 return <div className="filter">
-                <input type={"checkbox"} onChange={checkboxHandler} checked={value == filter.tag ? true : false} id={filter.id} name={filter.tag}/><label>{filter.tag}</label>
+                <input className="checkbox" type={"checkbox"} onChange={checkboxHandler} checked={value == filter.tag ? true : false} id={filter.id} name={filter.tag}/><label>{filter.tag}</label>
             </div>
             })}
         </div>

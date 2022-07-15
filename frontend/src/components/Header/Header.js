@@ -15,7 +15,7 @@ const Header = () => {
                 <Navbar/>
             </div>
             <div className="user-info">
-                <UserInfo />
+                <UserInfo /> 
             </div>
         </div>
     )

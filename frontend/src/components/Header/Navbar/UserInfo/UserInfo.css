@@ -1,3 +1,10 @@
+.UserInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
 .linkLogin {
     display: flex;
     width: 100%;
@@ -14,6 +21,25 @@
 }
 
 .logoutBtn {
-    height: 30px;
-    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin-left: 12px;
+    box-sizing: border-box;
+}
+
+.nicknameHolder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.nicknameGroupHolder {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-sizing: border-box;
 }

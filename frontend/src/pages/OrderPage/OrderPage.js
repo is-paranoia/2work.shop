@@ -6,7 +6,10 @@ import OrderActivity from "./OrderActivity/OrderActivity";
 import WebSocketChat from "../../components/WebSocketChat/WebSocketChat";
 import io from "socket.io-client";
 import OrderComments from "./OrderComments/OrderComments";
-
+import EtherCard from "./EtherCard/EtherCard";
+import {observer} from "mobx-react-lite"
+import order from "./store/order";
+import authUser from "../../store/authUser";
 
 const PORT = 8000
 const socket = io.connect(`http://localhost:${PORT}`) //change this to website url!!!
@@ -14,46 +17,31 @@ const socket = io.connect(`http://localhost:${PORT}`) //change this to website u
 const OrderPage = () => {
 
     const params = useParams()
-    let navigate = useNavigate();
-    let [order, setOrder] = useState([])
-
+    let navigate = useNavigate()
+    
 
     useEffect(() => {
-        getOrder()
+        order.getOrder(params.id)
     }, [])
-
-    let getOrder = async () => {
-        const user = JSON.parse(localStorage.getItem("userData"))
-        console.log("User", { token: user.token, id: user.userId})
-        let response = await fetch(`/api/orders/${params.id}`, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + user.token,
-            }
-        })
-        
-        if (response.ok) {
-            let data = await response.json()
-            console.log(data)
-            setOrder(data)
-        } else {
-            console.log('Error')
-        }
-    }
 
     return (
         <div className="OrderPage">
             <div className="mainOrderContent">
-                <OrderInfo orderData={order}/>
-                <OrderComments order={order} />
+
+                <OrderInfo />
+                { order.workerId !== null && order.workerId !== undefined ? <EtherCard /> : null}
+                <OrderComments />
             </div>
+            { authUser.isAuthenticated ?
             <div className="sideBar">
-                <OrderActivity orderData={order}/>
-                <WebSocketChat socket={socket} chatId={params.id}/>
+                <OrderActivity />
+                {(order.workerId !== null || order.workerId !== undefined) && (authUser.userId == order.authorId || authUser.userId == order.workerId || authUser.roleId == 2) ?
+                 <WebSocketChat socket={socket} chatId={params.id}/> : null}
+                
             </div>
+            : null}
         </div>
     )
 }
 
-export default OrderPage
+export default observer(OrderPage)
