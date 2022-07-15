@@ -65,7 +65,7 @@ const WebSocketChat = ({socket, chatId}) => {
 
 
    
-    const sendMessage = async () => {
+    const sendMessage = async (event) => {
         const user = JSON.parse(localStorage.getItem("userData"))
         if (currentMessage !== "") {
             const message = {
@@ -88,6 +88,7 @@ const WebSocketChat = ({socket, chatId}) => {
                 })
                 if (response.ok) {
                     setHistory((list) => [...list, message]);
+                    setCurrentMessage("")
                 }
             } catch (e) {
                 console.log(e)
@@ -110,11 +111,11 @@ const WebSocketChat = ({socket, chatId}) => {
                 })}
             </div>
             <div className="chatInputs">
-                <input type={"text"} 
+                <input className={"inputMessage"} type={"text"} 
                 placeholder={"Enter message"}
                 onChange={(event)=>{
                     setCurrentMessage(event.target.value)
-                }}></input>
+                }} value={currentMessage}></input>
                 <button className="sendBtn" onClick={sendMessage}>Send</button>
             </div>
         </div>

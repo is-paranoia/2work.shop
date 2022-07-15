@@ -54,11 +54,7 @@ const App = () => {
             <Header/>
             <div className={"content"}>
                 <Routes>
-                    <Route path="/*" element={
-                        <Fragment>
-                            <MainPage />
-                        </Fragment>
-                    }/>
+                    <Route path="/*" element={<OrdersPage />}/>
                     <Route path="/orders" element={<OrdersPage />} exact/>
                     <Route path="/auth/login" element={<AuthPage />} exact/>
                     <Route path="/orders/create" element={<CreateOrder />} exact/>

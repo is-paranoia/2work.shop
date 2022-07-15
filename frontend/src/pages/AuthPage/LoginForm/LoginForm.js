@@ -47,8 +47,8 @@ const LoginForm = ({setShowRegister}) => {
         <div className="LoginForm">
                <div className="changeForm"><h1>Login</h1><button onClick={changeShowHandler}><h1>Register</h1></button></div>
                <div className="auth-fields">
-                    <input className="email-field" name="email" placeholder="Email" onChange={changeHandler} />
-                    <input className="password-field" name="password" placeholder="Password" onChange={changeHandler} />
+                    <input className="email-field" name="email" placeholder="Email" type={"email"} onChange={changeHandler} />
+                    <input className="password-field" name="password" placeholder="Password" type={"password"} onChange={changeHandler} />
                </div>
                <div className="btn-group">
                    <button className="button-27" onClick={loginHandler}>Login</button>

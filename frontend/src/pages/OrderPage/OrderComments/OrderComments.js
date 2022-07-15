@@ -62,6 +62,7 @@ const OrderComments = () => {
                     body: JSON.stringify(comment),
                     method: "POST"})
                 getComments()
+                setComment({message: ""})
                 console.log("Comment create", data)
             }
         } catch (e) {
@@ -94,7 +95,7 @@ const OrderComments = () => {
             </div>
             { authUser.isAuthenticated ? 
             <div className="commentsCreateSection">
-                <textarea className="commentField" name="message" placeholder="Type your comment..." onChange={changeCommentHandler} />
+                <textarea className="commentField" name="message" placeholder="Type your comment..." onChange={changeCommentHandler} value={comment.message} />
                 <button className="button-27" onClick={createCommentHandler}>Create</button>
             </div> : null }
         </div>
