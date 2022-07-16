@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
     return knex('Orders').del()
     .then(function () {
         // Inserts seed entries
-        return knex('Users').insert([
+        return knex('Orders').insert([
             {
                 id: 1,
                 title: "Сделать телеграм бота",

@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
     return knex('Tags').del()
     .then(function () {
         // Inserts seed entries
-        return knex('Users').insert([
+        return knex('Tags').insert([
             {
                 id: 1,
                 tag: "IT"
