@@ -10,10 +10,11 @@ const WebSocketChat = ({socket, chatId}) => {
     let navigate = useNavigate();
     const [history, setHistory] = useState([])
     const [chatJoined, setChatJoined] = useState(false)
+    const [joinedChatId, setJoinedChatId] = useState(0)
     const [currentMessage, setCurrentMessage] = useState("")
 
     useEffect(() => {
-        if (chatJoined == false) {
+        if (chatId !== joinedChatId) {
             joinChat()
         }
         let test = false;
@@ -26,7 +27,7 @@ const WebSocketChat = ({socket, chatId}) => {
         return () => {
           test = true;
         };
-    }, [history]);
+    }, [history, chatId]);
 
     const getHistory = async () => {
         const user = JSON.parse(localStorage.getItem("userData"))
@@ -53,8 +54,10 @@ const WebSocketChat = ({socket, chatId}) => {
     
     const joinChat = async () => {
         try {
+            setHistory([])
             socket.emit("joinChat", chatId)
             setChatJoined(true)
+            setJoinedChatId(chatId)
             getHistory()
         } catch (e) {
             console.log(e)

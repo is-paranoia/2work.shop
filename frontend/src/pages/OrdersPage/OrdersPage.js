@@ -54,9 +54,32 @@ const OrdersPage = () => {
         }
     }
 
-    const handleEnterSearch = (event) => {
+    const handleEnterSearch = async (event) => {
         if(event.key === 'Enter'){
-          console.log('enter press here! ')
+            if (search !== "") {
+                setOrders([])
+                const user = JSON.parse(localStorage.getItem("userData"))
+                let response = await fetch('/api/orders', {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      }
+                })
+                if (response.ok) {
+                    let data = await response.json()
+                    let relevant = []
+                    data.forEach(element => {
+                        if (element.title.includes(search)) {
+                            relevant.push(element)
+                        }
+                    });
+                    setOrders(relevant)
+                } else {
+                    console.log('Error')
+                }
+            } else {
+                getOrders(currentFilter)
+            }
         }
     }
 

@@ -1,0 +1,11 @@
+.AdminPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputChatId {
+    display: flex;
+    width: 250px;
+    height: 24px;
+}

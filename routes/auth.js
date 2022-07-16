@@ -16,7 +16,9 @@ router.post(
     async (req, res) => {
         console.log("post on register")
     try {
+        console.log("1")
         const errors = validationResult(req)
+        console.log("2")
         if (!errors.isEmpty()){
             return res.status(400).json({
                 errors: errors.array(),
@@ -24,16 +26,22 @@ router.post(
                 test: req.body
             })
         }
-        const {email, nickname, wallet, password} = req.body
+        console.log("3")
+        const {email, nickname, password} = req.body
+        console.log(req.body)
         const existUser = await knex('Users').where("email", email)
-
+        console.log(existUser)
+        console.log("jjj", existUser.length)
         if (existUser.length !== 0) {
             return res.status(400).json({message: "User is already exists"})
         }
-        
+        console.log("4")
         const hashedPassword = await bcrypt.hash(password, 12)
-        const user = await knex('Users').insert({ email: email, nickname: nickname, wallet: wallet, password: hashedPassword })
+        console.log("5")
+        const user = await knex('Users').insert({ email: email, nickname: nickname, password: hashedPassword }).catch(err => console.log('Transaction', err))
+        console.log("6")
         res.status(201).json({message: "User has been created"})
+        console.log("7")
 
     } catch (e) {
         res.status(500).json({

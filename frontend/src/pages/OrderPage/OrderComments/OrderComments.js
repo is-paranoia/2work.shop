@@ -4,6 +4,7 @@ import "./OrderComments.css";
 import {observer} from "mobx-react-lite"
 import order from "../store/order";
 import authUser from "../../../store/authUser";
+import UserName from "../../../components/UserName/UserName";
 
 const OrderComments = () => {
 
@@ -86,7 +87,7 @@ const OrderComments = () => {
             <div className="commentsContentSection">
             {comments.map((comment) => {
                 return <div className="comment" key={comment.id}>
-                    <div className="user">{comment.userId}</div>
+                    <div className="user">{comment.userId ? <UserName userId={comment.userId}></UserName> : null}</div>
                     <div className="content">{comment.message}</div>
                     <div className="time">{comment.createdAt}</div>
                     { authUser.isAuthenticated ? user.roleId == 2 ? <button className="button-27" onClick={deleteCommentHandler}>adminDelete</button> : <div></div> : null}

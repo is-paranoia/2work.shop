@@ -16,6 +16,8 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import CreateOrder from "./pages/CreateOrder/CreateOrder";
 import OrderPage from "./pages/OrderPage/OrderPage";
 import MyOrdersPage from "./pages/MyOrdersPage/MyOrdersPage";
+import authUser from "./store/authUser";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 
 
@@ -60,6 +62,7 @@ const App = () => {
                     <Route path="/orders/create" element={<CreateOrder />} exact/>
                     <Route path="/orders/my" element={<MyOrdersPage />} exact/>
                     <Route path="/orders/:id" element={<OrderPage />} exact/>
+                    {authUser.roleId == 2 ? <Route path="/admin" element={<AdminPage />} exact/> : null}
                 </Routes>
             </div>
             <Footer/>
