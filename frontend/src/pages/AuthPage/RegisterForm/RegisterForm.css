@@ -20,6 +20,21 @@
     width: 100%;
 }
 
+.changeForm button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 0px solid transparent;
+    font-size: 12px;
+    border-bottom: 2px solid #323232;
+}
+
+.choosen {
+    font-size: 24px;
+    border-bottom: 2px solid #52b788;
+}
+
 @media only screen and (max-width: 1440px) {
     .RegisterForm {
       width: 100%;
