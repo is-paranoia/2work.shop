@@ -12,7 +12,7 @@ import order from "./store/order";
 import authUser from "../../store/authUser";
 
 const PORT = 8000
-const socket = io.connect(`http://localhost:${PORT}`) //change this to website url!!!
+const socket = io.connect(`http://185.173.38.128:8000/`) //change this to website url!!!
 
 const OrderPage = () => {
 
@@ -35,7 +35,7 @@ const OrderPage = () => {
             { authUser.isAuthenticated ?
             <div className="sideBar">
                 <OrderActivity />
-                {(order.workerId !== null || order.workerId !== undefined) && (authUser.userId == order.authorId || authUser.userId == order.workerId || authUser.roleId == 2) ?
+                {(order.workerId !== null && order.workerId !== undefined) && (authUser.userId == order.authorId || authUser.userId == order.workerId || authUser.roleId == 2) ?
                  <WebSocketChat socket={socket} chatId={params.id}/> : null}
                 
             </div>

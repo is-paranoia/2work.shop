@@ -16,6 +16,8 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import CreateOrder from "./pages/CreateOrder/CreateOrder";
 import OrderPage from "./pages/OrderPage/OrderPage";
 import MyOrdersPage from "./pages/MyOrdersPage/MyOrdersPage";
+import authUser from "./store/authUser";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 
 
@@ -54,16 +56,13 @@ const App = () => {
             <Header/>
             <div className={"content"}>
                 <Routes>
-                    <Route path="/*" element={
-                        <Fragment>
-                            <MainPage />
-                        </Fragment>
-                    }/>
+                    <Route path="/*" element={<OrdersPage />}/>
                     <Route path="/orders" element={<OrdersPage />} exact/>
                     <Route path="/auth/login" element={<AuthPage />} exact/>
                     <Route path="/orders/create" element={<CreateOrder />} exact/>
                     <Route path="/orders/my" element={<MyOrdersPage />} exact/>
                     <Route path="/orders/:id" element={<OrderPage />} exact/>
+                    {authUser.roleId == 2 ? <Route path="/admin" element={<AdminPage />} exact/> : null}
                 </Routes>
             </div>
             <Footer/>

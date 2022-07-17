@@ -8,7 +8,7 @@ const Footer = () => {
 
     return (
         <div className="Footer">
-            Footer here
+            Made by <a href="https://github.com/is-paranoia">paranoia</a> 2022
         </div>
     )
 }

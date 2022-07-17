@@ -37,7 +37,7 @@ const RegisterForm = ({setShowRegister}) => {
 
     return (
         <div className="RegisterForm">
-               <div className="changeForm"><button onClick={changeShowHandler}><h1>Login</h1></button><h1>Register</h1></div>
+               <div className="changeForm"><button onClick={changeShowHandler}><h1>Login</h1></button><h1 className="choosen">Register</h1></div>
                <div className="auth-fields">
                     <input className="nickname-field" name="nickname" placeholder="Nickname" onChange={changeHandler} />
                     <input className="email-field" name="email" placeholder="Email" onChange={changeHandler} />
