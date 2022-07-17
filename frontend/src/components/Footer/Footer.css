@@ -1,5 +1,17 @@
 .Footer {
     flex: 0 0 auto;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #323232;
     box-sizing: border-box;
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #ffffff;
+}
+
+.Footer a {
+    color: #ffffff;
+    margin-left: 8px;
+    margin-right: 8px;
+    text-decoration: line-through #ffffff;
 }

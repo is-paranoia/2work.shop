@@ -62,11 +62,11 @@
 }
 
 #friend {
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 #me {
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 #friend .messageBody {

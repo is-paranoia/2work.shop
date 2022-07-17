@@ -10,10 +10,11 @@ const WebSocketChat = ({socket, chatId}) => {
     let navigate = useNavigate();
     const [history, setHistory] = useState([])
     const [chatJoined, setChatJoined] = useState(false)
+    const [joinedChatId, setJoinedChatId] = useState(0)
     const [currentMessage, setCurrentMessage] = useState("")
 
     useEffect(() => {
-        if (chatJoined == false) {
+        if (chatId !== joinedChatId) {
             joinChat()
         }
         let test = false;
@@ -26,7 +27,7 @@ const WebSocketChat = ({socket, chatId}) => {
         return () => {
           test = true;
         };
-    }, [history]);
+    }, [history, chatId]);
 
     const getHistory = async () => {
         const user = JSON.parse(localStorage.getItem("userData"))
@@ -53,8 +54,10 @@ const WebSocketChat = ({socket, chatId}) => {
     
     const joinChat = async () => {
         try {
+            setHistory([])
             socket.emit("joinChat", chatId)
             setChatJoined(true)
+            setJoinedChatId(chatId)
             getHistory()
         } catch (e) {
             console.log(e)
@@ -65,7 +68,7 @@ const WebSocketChat = ({socket, chatId}) => {
 
 
    
-    const sendMessage = async () => {
+    const sendMessage = async (event) => {
         const user = JSON.parse(localStorage.getItem("userData"))
         if (currentMessage !== "") {
             const message = {
@@ -88,6 +91,7 @@ const WebSocketChat = ({socket, chatId}) => {
                 })
                 if (response.ok) {
                     setHistory((list) => [...list, message]);
+                    setCurrentMessage("")
                 }
             } catch (e) {
                 console.log(e)
@@ -110,11 +114,11 @@ const WebSocketChat = ({socket, chatId}) => {
                 })}
             </div>
             <div className="chatInputs">
-                <input type={"text"} 
+                <input className={"inputMessage"} type={"text"} 
                 placeholder={"Enter message"}
                 onChange={(event)=>{
                     setCurrentMessage(event.target.value)
-                }}></input>
+                }} value={currentMessage}></input>
                 <button className="sendBtn" onClick={sendMessage}>Send</button>
             </div>
         </div>

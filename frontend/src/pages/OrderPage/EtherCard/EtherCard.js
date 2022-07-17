@@ -19,7 +19,7 @@ const EtherCard = () => {
         if (order.id !== undefined && order.id !== null){
             status.getPaymentStatus(order.id)
         } else {
-            console.log("KAK")
+            console.log("Error")
         }
     }, [order.id])
 
