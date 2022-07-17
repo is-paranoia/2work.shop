@@ -15,7 +15,6 @@ exports.seed = function(knex) {
 					title: "Создание канбан-доски",
 					description: "Нужен человек с опытом, который сделает команде канбан-доску",
 					authorId: 3,
-					workerId: 1,
 					tagId: 1,
 					price: 0.2,
 				},
